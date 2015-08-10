@@ -1,0 +1,285 @@
+/*
+Theme Name: Diamonds
+Theme URI: http://nmomedia.com/products/wordpress/themes/diamonds/
+Description: Theme featuring diamonds and with a front page featured image gallery
+Author: Rebekah Sealey
+Author URI: http://nmomedia.com/
+Text Domain: diamonds
+Version: 1.0
+
+Tags: black, gray, white, blue, green, one-column, two-columns, three-columns, responsive-layout, custom-background, custom-header, custom-menu, featured-images, full-width-template, theme-options, threaded-comments, translation-ready
+
+Copyright: Copyright 2014, NMO Media & Design Company
+License: GNU General Public License v2.0
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+*/
+//Variables
+
+$green: #4FDC70;
+$coral: #EA5755;
+$yellow: #DDD83D;
+$blue: #50A9DD;
+$purple: #994CF4;
+$aqua: #48BCB0;
+$white: #fbfbf9;
+$lt-gray: #b2b2b2;
+$med-gray: #4d4d4d;
+$charcoal: #2B2B2B;
+
+$background-color: $med-gray;
+$body-font: "Quicksand", sans-serif;
+$body-color: $lt-gray;
+$heading-font: "Megalopolis", "Arial Black", "Arial Bold", Gadget, sans-serif;
+$heading-color: $charcoal;
+$link: $blue;
+$hover: $aqua;
+$active: $white;
+$serif-font: "Acknowledgement", "Rockwell Extra Bold", "Rockwell Bold", serif;
+$italic-font: "Calligraffitti", script;
+$monospace-font: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+$text-shadow: lighten($charcoal, 25%) 0px 1px 2px;
+
+$margin: 1rem;
+$pad: 20px;
+
+@import 'css/_meyer';
+@import 'css/_box';
+@import 'css/_wordpress';
+@import 'css/_typography';
+@import 'css/_general';
+@import 'css/_sidebars';
+
+
+@media (min-width: 768px) {
+	@import 'css/_grid';
+}
+@media (min-width: 0) and (max-width: 900px) {
+	html {
+		font-size: 75%;
+	}
+	#social ul {
+		margin-bottom: 0
+	}
+	article {
+		width: 99%;
+		max-width: 720px;
+		margin: auto;
+	}
+}
+
+@media (min-width: 720px) {
+	body {
+		background: $background-color url(images/body-bg.jpg);
+	}
+	.date-meta {
+		background: $background-color url(images/body-bg.jpg);
+	}
+}
+@media (min-width: 900px) {
+	.row {
+		margin: 1rem auto;
+		overflow: auto;
+	}
+	.column {
+		margin: 1rem auto 3rem;
+		float: left;
+		padding: 0 1rem;
+	}
+	.column.full {
+		width: 100%;
+	}
+	.column.two-thirds {
+    	width: 65%; 
+		max-width: 650px;
+	}
+	.column.three-quarters {
+		width: 75%;
+	}
+	.column.half {
+    	width: 50%; 
+		max-width: 540px;
+	}
+	.column.third {
+    	width: 33%;
+	}
+	.column.fourth {
+    	width: 24%; 
+	}
+	.column.reverse {
+    	float: right; 
+	}
+	.column.no-float {
+		float: none;
+	}
+	.column .column:first-of-type {
+    	padding: 0 1rem 0 0; 
+	}
+	.column .column:last-of-type {
+    	padding: 0 0 0 1rem; 
+	}
+	.column.full.no-float {
+		padding: 0;
+	}
+	.column.center {
+		margin: auto;
+		float: none;
+	}
+	div#left, div#right {
+		padding-top: 3rem;
+	}
+	#menu-main {
+		display: block;
+	}
+	.menu-main-container {
+		display: block;
+	}
+	.slicknav_menu {
+		display: none;
+	}
+	.wrapper>header {
+		overflow: hidden;
+	}
+	.wrapper>header .column {
+		margin: 0.5rem auto;
+	}
+	.wrapper>header div, .row {
+		width: 98%;
+		max-width: 1080px;
+	}
+	.wrapper>header div {
+		margin: 0 auto;
+	}
+	.wrapper>header div.column.half {
+		padding-top: 0;
+	}
+	.wrapper>header em {
+		display: block;
+		line-height: 0.8;
+	}
+	.wrapper>header nav ul, .wrapper>header div.menu ul {
+		display: block;
+		margin-top: 1rem;
+	}
+	main {
+		min-height: 90rem;
+	}
+	div#top {
+		margin: 0 auto 0;
+	}
+	#social ul {
+		float: right;
+	}
+	ul#breadcrumbs {
+		list-style: none;
+		display: block;
+		margin-left: 1rem;
+	}
+	ul#breadcrumbs li {
+		display: inline-block;
+		font-size: 1.2rem;
+		margin: 0.2rem;
+		font-weight: bold;
+	}
+	ul#breadcrumbs li a {
+		display: inline-block;
+		font-style: italic;
+		font-weight: normal;
+	}
+	.home.blog ul#breadcrumbs, .error404 ul#breadcrumbs {
+		display: none;
+	}
+	.header-sidebar ul.menu li ul li:hover > ul {
+		top:0;left:100%;
+	}
+	p:first-of-type {
+		margin: 0 0 1rem;
+	}
+	header + ul.meta {
+		float: left;
+		margin-left: 0;
+	}
+	form.search-form {
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		float: right;
+	}
+	.search form.search-form {
+		width: 100%;
+		max-width: 337px;
+		margin: 0;
+		padding: 0;
+		float: right;
+	}
+	form.search-form label, .search form.search-form label {
+		display: inline;
+		width: 78%;
+		margin-right: 0;
+		float: left;
+	}
+	form.search-form label span {
+		display: none;
+	}
+	form.search-form input[type="search"] {
+		width: 100%;
+		line-height: 1.4;
+		padding: 4px;
+		font-size: 1.8rem;
+	}
+	form.search-form input[type="submit"] {
+		font-size: 1.4rem;
+		display: inline;
+		margin-top: 0;
+		width: 70px;
+	}
+	article>div {
+		min-height: 10rem;
+	}
+	article.comment-body>div {
+		min-height: 1rem;
+	}
+	article form.search-form {
+		margin: 2rem 0;
+	}
+	hr:after {
+		top: -1.2rem;
+		background:  $background-color url(images/body-bg.jpg);
+	}
+
+	/*****************
+	*
+	* Post Formats
+	*
+	*****************/
+	.single-format-gallery ul.meta {
+		float: none;
+	}
+	.single-format-gallery figcaption {
+		display: none;
+	}
+	.vert div#gallery-images {
+		position: absolute;
+		top: -750px;
+		left: 550px;
+		width: 520px;
+	}
+	.horiz #gallery-images {
+		float: right;
+	}
+	.horiz .gallery-item {
+		margin: 1rem 0 1rem 2rem;
+	}
+	.vert .column.half .format-gallery .gallery .gallery-item:nth-of-type(odd),
+	.horiz .format-gallery .column.two-thirds .gallery .gallery-item:nth-of-type(odd) {
+		clear: none;
+	}
+	.vert .column.half .format-gallery .gallery-columns-3 .gallery-item:nth-of-type(3n+1) {
+		clear: left;
+	}
+	.horiz .format-gallery .column.two-thirds .gallery-columns-3 .gallery-item:nth-of-type(3n+1) {
+		clear: left;
+	}
+	div#description {
+		margin-top: 1rem;
+	}
+}

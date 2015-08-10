@@ -1,0 +1,54 @@
+//Variables
+
+$green: #4FDC70;
+$coral: #EA5755;
+$yellow: #DDD83D;
+$blue: #50A9DD;
+$purple: #994CF4;
+$aqua: #48BCB0;
+$white: #fbfbf9;
+$lt-gray: #b2b2b2;
+$med-gray: #4d4d4d;
+$charcoal: #2B2B2B;
+
+$background-color: $med-gray;
+$body-font: "Quicksand", sans-serif;
+$body-color: $lt-gray;
+$heading-font: "Megalopolis", "Arial Black", "Arial Bold", Gadget, sans-serif;
+$heading-color: $charcoal;
+$link: $blue;
+$hover: $aqua;
+$active: $white;
+$serif-font: "Acknowledgement", "Rockwell Extra Bold", "Rockwell Bold", serif;
+$italic-font: "Calligraffitti", script;
+$monospace-font: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+$text-shadow: lighten($charcoal, 25%) 0px 1px 2px;
+
+$margin: 1rem;
+$pad: 20px;
+
+/* Sidebars */
+.widget {
+	margin: 0 0 4rem;
+	overflow: hidden;
+}
+.widgettitle {
+	margin: 0 0 2rem 0;
+}
+.search form.search-form {
+	padding: 2rem 0.5rem;
+}
+.search form.search-form label {
+	width: 72%;
+	margin-right: 1rem;
+	display: block;
+}
+.search input[type="search"] {
+	width: 100%;
+	font-size: 1.8rem;
+	padding: 2px 4px;
+}
+.search input[type="submit"] {
+	margin-top: 2rem;
+	font-size: 1.8rem;
+}

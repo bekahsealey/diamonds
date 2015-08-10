@@ -1,2 +1,4 @@
 # diamonds
-A WordPress Theme emphasizing Diamonds
+Wordpress theme with diamond accents.
+
+## Theme Development in Progress

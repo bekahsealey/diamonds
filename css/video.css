@@ -1,0 +1,6 @@
+.video-js {padding-top: 56.25%; width: 96%;}
+.video-js .vjs-tech {width: auto;}
+.vjs-fullscreen {padding-top: 0px}
+@media screen and (min-width: 960px) {
+.reverse .video-js {margin-left: 3rem;}
+}

@@ -1,0 +1,307 @@
+//Variables
+
+$green: #4FDC70;
+$coral: #EA5755;
+$yellow: #DDD83D;
+$blue: #50A9DD;
+$purple: #994CF4;
+$aqua: #48BCB0;
+$white: #fbfbf9;
+$lt-gray: #b2b2b2;
+$med-gray: #4d4d4d;
+$charcoal: #2B2B2B;
+
+$background-color: $med-gray;
+$body-font: "Quicksand", sans-serif;
+$body-color: $lt-gray;
+$heading-font: "Megalopolis", "Arial Black", "Arial Bold", Gadget, sans-serif;
+$heading-color: $charcoal;
+$link: $blue;
+$hover: $aqua;
+$active: $white;
+$serif-font: "Acknowledgement", "Rockwell Extra Bold", "Rockwell Bold", serif;
+$italic-font: "Calligraffitti", script;
+$monospace-font: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+$text-shadow: lighten($charcoal, 25%) 0px 1px 2px;
+
+$margin: 1rem;
+$pad: 20px;
+
+
+/*****************
+*
+* Images
+*
+*****************/
+#custom-header {
+	box-shadow: none;
+}
+figure:not(.gallery-item) {
+	width: 100%;
+	margin: 0 auto 3rem;
+}
+.column.half figure:not(.gallery-item), .vert figure:not(.gallery-item) {
+	max-width: 480px;
+}
+.column.two-thirds figure:not(.gallery-item) {
+	max-width: 580px;
+}
+.column.three-quarters figure:not(.gallery-item), .horiz figure:not(.gallery-item) {
+	max-width: 720px;
+}
+figure:not(.gallery-item) img:not(#custom-header) { 
+	width: 100%;
+	box-shadow: 0 2px 4px $charcoal;
+}
+figcaption  {
+	font-style: italic;
+	text-align: center;
+	font-size: 1.8rem;
+	line-height: 1.4;
+}
+img:not(#custom-header) {
+	max-width: 100%;
+}
+section>figure:not(.gallery-item).column {
+	margin: 0 auto 3em;
+	width: inherit;
+}
+section>figure:not(.gallery-item) img { 
+	width: auto;
+}
+
+/*****************
+*
+* Layout & Design
+*
+*****************/
+/* set up responsive grid */
+*,
+*:before,
+*:before {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.clearfix:before,
+.clearfix:before {
+	content: " ";
+	display: table;
+}
+.clearfix:before {
+	clear: both;
+}
+.row {
+	margin: 5rem auto;
+	overflow: auto;
+}
+section.row {
+	padding-top: 4.8rem;
+	overflow: hidden;
+	position: relative;
+}
+section.row.archive-header {
+	padding-top: 1rem;
+	margin-bottom: 5rem;
+}
+section figure {
+	margin-bottom: 3rem;
+}
+body {
+	background: $background-color;
+	font-family: $body-font;
+	color: $body-color;
+	font-size: 1.6rem;
+}
+ #menu-main {
+	display:none;
+}
+.menu-main-container {
+	display: none;
+}
+.slicknav_menu {
+	display:block;
+}
+.slicknav_menu span {
+	margin: 0;
+}
+.wrapper>header {
+	background: $white;
+	box-shadow: 1px 0px 3px $charcoal;
+	position: relative;
+	z-index: 10;
+}
+.wrapper>header h1 {
+	background: url(favicon.ico) left 2px no-repeat;
+	background-size: 48px;
+	text-indent: 50px;
+	line-height: 50px;
+	margin-bottom: 0;
+	width: 90%;
+	margin: 0;
+}
+.wrapper>header em {
+	font-size: 0.8em;
+	display: block;
+}
+.wrapper>header span {
+	font-family: $body-font;
+}
+.wrapper>header a:active {
+	color: $green;
+}
+.wrapper>header div.column.half {
+	position: relative;
+}
+header a {
+	display: block;
+}
+header ul {
+	margin-left: 0;
+}
+header ul a {
+	display: inline;
+}
+main {
+	border-top: 6px $green solid;
+	position: relative;
+	z-index: 1;
+}
+div#top {
+	margin: -3em auto -6em;
+}
+x#main {
+	margin-top: 3rem;
+}
+#breadcrumbs {
+	display: none;
+}
+article {
+	border-top: 4px $green solid;
+	padding: 0 10px;
+	position: relative;
+}
+article>header {
+	margin: 1rem 0 1.8rem 14rem;
+}
+header+ul.meta {
+	margin-left: 13rem;
+}
+.date-meta {
+	list-style: none;
+	background: $background-color;
+	float: left;
+	position: absolute;
+	top: -30px;
+	left: -20px;
+	z-index: 1;
+}
+.date-meta li {
+	display: inline-block;
+	text-align: center;
+	width: 40px;
+	color: $white;
+	padding: 0 2px;
+}
+ul.date-meta li:first-child {
+	text-transform: uppercase;
+   /* Rotate */
+   -webkit-transform: rotate(-45deg);
+   -moz-transform: rotate(-45deg);
+   -ms-transform: rotate(-45deg);
+   -o-transform: rotate(-45deg);
+   transform: rotate(-45deg);
+   position: relative;
+   top: -45px;
+   left: 10px;
+}
+ul.date-meta li:nth-child(2),
+ul.date-meta.post-icon li:only-child {
+	width: 60px;
+	height: 60px; 
+	background: lighten($med-gray, 10%);
+	margin: 8px;
+	border: 4px $green solid;
+	/* Rotate */
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	/* Rotate Origin */
+	-webkit-transform-origin: 0 100%;
+	-moz-transform-origin: 0 100%;
+	-ms-transform-origin: 0 100%;
+	-o-transform-origin: 0 100%;
+	transform-origin: 0 100%;
+	position: relative;
+	left: 10px;
+}
+ul.date-meta li:nth-child(2) div, 
+ul.date-meta.post-icon li:only-child div {
+   /* Rotate */
+   -webkit-transform: rotate(45deg);
+   -moz-transform: rotate(45deg);
+   -ms-transform: rotate(45deg);
+   -o-transform: rotate(45deg);
+   transform: rotate(45deg);
+   line-height: 50px;
+   font-size: 2em;
+   text-align: center;
+   width: 48px;
+}
+ul.date-meta:not(.post-icon) li:last-child {
+   /* Rotate */
+   -webkit-transform: rotate(45deg);
+   -moz-transform: rotate(45deg);
+   -ms-transform: rotate(45deg);
+   -o-transform: rotate(45deg);
+   transform: rotate(45deg);
+   position: absolute;
+   top: -12px;
+   left: 66px;
+}
+ul.date-meta.post-icon li:only-child {
+	left: 30px;
+	margin: 0 30px;
+} 
+ul.date-meta.post-icon li:last-child {
+	top: 10px;
+} 
+ul.date-meta.post-icon li:only-child div {
+	font-size: 2em;
+	line-height: 48px;
+	color: lighten($lt-gray, 25%);
+}
+ul.date-meta li a, ul.date-meta li a .icon {
+	color: $white;
+}
+ul.date-meta li a:hover, ul.date-meta li a:hover .icon,
+.sticky .date-meta.post-icon a:hover, .sticky .date-meta.post-icon a:hover .icon {
+	color: $blue;
+}
+ul.date-meta li a:active, ul.date-meta li a:active .icon,
+.sticky .date-meta.post-icon a:active, .sticky .date-meta.post-icon a:active .icon {
+	color: $green;
+}
+footer:last-of-type {
+	overflow: auto;
+	width: 100%;
+}
+footer .row {
+	margin: 0 auto;
+}
+#footer-sidebar {
+	background: darken($med-gray, 5%);
+	border-top: 6px $green solid;
+	box-shadow: 0 -1px 3px $charcoal;
+	overflow: auto;
+}
+#footer-meta {
+	background: lighten($med-gray, 20%);
+	overflow: auto;
+	color: $heading-color;
+}
+footer .brand {
+	text-align: right;
+}
