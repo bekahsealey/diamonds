@@ -1,5 +1,6 @@
 <?php get_header(); ?>
 <?php 
+	global $thumbsize;
 	$cols = new diamondsFlexCol();
 	$mainWidth = $cols->_maincol_width;
 	$thumbSize = $cols->_size;

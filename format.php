@@ -1,3 +1,4 @@
+<?php global $thumbSize; echo $thumbSize; ?>
 <?php if ( has_post_thumbnail() ) { ?><figure><?php the_post_thumbnail( $thumbSize ); ?><figcaption><?php the_post_thumbnail_caption(); ?></figcaption></figure><?php } ?>
 			<section class="row clearfix">
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
