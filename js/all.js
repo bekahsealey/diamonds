@@ -23,20 +23,20 @@ jQuery(document).ready(function($) {
 	}
 	
 	//nav menu html correction if menu left default
-	if ( $(".wrapper>header div.menu") == null) {
+	if ( $("#page-header div.menu") == null) {
 		return false;
 	}
-	$(".wrapper>header div.menu").each(function() {
-		$(this).find("ul").attr("id", "menu-main").attr("class", "menu horiz column reverse");
+	$("#page-header div.menu").each(function() {
+		$(this).find("ul").attr("id", "menu-main").attr("class", "menu horiz clearfix reverse");
 		var menucontent = $(this).html();
-		$(this).replaceWith('<nav class="menu column half reverse"></nav>');
+		$(this).replaceWith('<nav class="menu horiz clearfix reverse"></nav>');
 		$("nav.menu").append(menucontent).removeClass("menu ");
 		
 	});
-	if ( $(".wrapper>header div#social") == null) {
+	if ( $("#page-header div#social") == null) {
 		return false;
 	}
-	$(".wrapper>header div#social").each(function() {
+	$("#page-header div#social").each(function() {
 		$(this).find("a").contents()
   .filter(function(){
     return this.nodeType !== 1;

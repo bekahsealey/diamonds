@@ -40,7 +40,8 @@ $pad: 20px;
          url('fonts/acknowledgement-webfont.svg#acknowledgementmedium') format('svg');
     font-weight: normal;
     font-style: normal;
-
+}
+@font-face {
     font-family: 'Megalopolis';
     src: url('fonts/megalopolisextra-webfont.eot');
     src: url('fonts/megalopolisextra-webfont.eot?#iefix') format('embedded-opentype'),
@@ -49,7 +50,8 @@ $pad: 20px;
          url('fonts/megalopolisextra-webfont.svg#megalopolis_extraregular') format('svg');
     font-weight: normal;
     font-style: normal;
-	
+}
+@font-face {	
 	font-family: 'socialize';
 	src:url('fonts/socialize.eot?-izptai');
 	src:url('fonts/socialize.eot?#iefix-izptai') format('embedded-opentype'),
@@ -63,23 +65,19 @@ $pad: 20px;
 html {
   font-size: 62.5%;
 }
+.serif {
+  font-family: $serif-font;
+  color: $heading-color;
+  margin-bottom: 1rem;
+}
 h1, h2, h3, h4, h5, h6 {
   font-family: $heading-font;
-  color: $heading-color;
   margin-bottom: 1rem; 
   text-shadow: $text-shadow;
 }
 article header h2 {
 	text-shadow: none;
 	word-wrap: break-word;
-}
-.serif {
-  font-family: $serif-font;
-  color: $heading-color;
-  margin-bottom: 1rem;
-}
-em, blockquote, q {
-	font-family: $italic-font;
 }
 h1 {
   font-size: 3rem;
@@ -101,54 +99,49 @@ h6 {
 }
 p, span {
 	line-height: 1.4;
-	margin: 1rem 0; 
+	margin: 0 0 1rem 0; 
 }
 small {
 	font-size: 1.2rem;
 }
-main ul, main ol {
-	margin-left: 40px; 
+ul, ol {
+	margin-left: 20px; 
 }
 .widget ul, .widget ol {
-	margin-left: 20px;
 	list-style: none;
 }
 .column > ul, .column > ol {
 	margin-bottom: 10px;
 }
-main ul {
+article ul {
 	list-style: disc;
 }
-main ul ul {
+article ul ul {
 	list-style: circle;
 }
-main ul ul ul {
+article ul ul ul {
 	list-style: square;
 }
-main ol {
+article ol {
   list-style: decimal;
 }
-main ol ol {
+article ol ol {
 	list-style: lower-alpha;
 }
-main ol ol ol {
+article ol ol ol {
 	list-style: lower-roman;
+}
+li {
+  line-height: 1.2; 
 }
 .meta {
 	list-style: none;
 	font-size: 1.2rem;
 	margin-left: 0;
 }
-footer .meta li {
-	display: inline-block;
-	margin-right: 2px;
-}
 .robert {
 	list-style: decimal-leading-zero;
 } 
-main ul li, main ol li {
-  line-height: 1.2; 
-}
 dl {
   margin: 1rem 6rem; 
 }
@@ -167,6 +160,9 @@ dd a {
 }
 dd a:hover {
 	color: $white;
+}
+em, blockquote, q {
+	font-family: $italic-font;
 }
 q {
 	margin-left: 2rem;
@@ -237,9 +233,9 @@ var {
 **************************
 *************************/
 form {
-	max-width: 540px;
 	width: 98%;
-	margin: 3rem auto; 
+	max-width: 540px;
+	margin: 0 auto; 
 	overflow: auto;
 }
 form ul, form ol {
@@ -271,7 +267,7 @@ legend {
 .no-borderradius legend {
 	background: none;
 }
-form ol {
+form ol, form ul {
 	margin: 0 auto;
 	max-width: 500px;
 	width: 98%; 
@@ -302,11 +298,13 @@ textarea {
 }
 form[role="search"] label {
 	float: left;
-	width: 90%;
+	width: 80%;
 	max-width: 480px;
+	vertical-align: middle;
 }
 input[type="search"] {
-	width: 75%;
+	width: 100%;
+	vertical-align: middle;
 }
 form input[type="submit"] {
 	background: lighten($blue, 10%);
@@ -318,8 +316,9 @@ form input[type="submit"] {
 	background: linear-gradient(to bottom, hsla(203,68%,94%,1) 0%,hsla(203,68%,84%,1) 50%,hsla(202,68%,79%,1) 51%,hsla(201,90%,88%,1) 100%); /* W3C */
 	border: 1px darken($blue, 10%) solid;
 	border-radius: 12px;
-	font-size: 1.2rem; 
+	font-size: 1.4rem; 
 	float: right;
+	vertical-align: middle;
 }
 form input[type="submit"]:hover {
 	background: $white;
@@ -373,6 +372,9 @@ hr:after {
     padding: 0 0.25em;
     background: $background-color;
 }
+.screen-reader-text {
+    display: none;
+}
 /*************************
 **************************
 ***  Tables
@@ -425,6 +427,31 @@ a:hover, a:focus {
 a:active {
 	color: $active;
 }
+header a {
+	display: block;
+}
+header ul {
+	margin-left: 0;
+}
+header ul a {
+	display: inline;
+}
+#breadcrumbs {
+	list-style: none;
+	display: block;
+	margin-left: 0;
+}
+#breadcrumbs li {
+	display: inline-block;
+	font-size: 1.2rem;
+	margin: 0.2rem;
+	font-weight: bold;
+}
+#breadcrumbs li a {
+	display: inline-block;
+	font-style: italic;
+	font-weight: normal;
+}
 /* Custom Post & Social Media Icons */
 a[rel~=icon], .icon {
 	font-family: 'socialize';
@@ -441,7 +468,7 @@ a[rel~=icon], .icon {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
-article .column .icon {
+article .icon {
 	color: $aqua;
 	font-size: 2rem;
 	text-shadow: $text-shadow;
@@ -800,6 +827,9 @@ a[rel~=icon-css3]:before, .icon-css3:before {
 * Menus
 *
 *****************/
+nav ul {
+	margin-left: 0;
+}
 div.menu li, 
 ul.horiz li {
 	display: inline-block;

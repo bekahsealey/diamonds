@@ -1,12 +1,7 @@
-<?php get_header(); ?>	
-<?php 
-	$cols = new diamondsFlexCol();
-	$mainWidth = $cols->_maincol_width;
-	$thumbSize = $cols->_size;
-	$cols->diamonds_flex( 'left' );
-?>
-	<div id="main" class="column <?php echo $mainWidth; ?>">
-					<figure><img src="<?php echo get_template_directory_uri() . '/images/404.jpg' ?>"><figcaption>Not Found</figcaption></figure>
+<?php get_header(); ?>
+		<?php $cols->diamonds_flex( 'left' ); ?>
+		<main class="col-<?php echo $mainWidth; ?>">
+			<figure><img src="<?php echo get_template_directory_uri() . '/images/404.jpg' ?>"><figcaption>Not Found</figcaption></figure>
 			<section class="row clearfix">
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 						<?php diamonds_page_icon(); ?>
@@ -31,9 +26,6 @@
 					<?php } ?>
 				</article>
 			</section><!-- /row -->
-	</div>
-
-<?php
-	$cols->diamonds_flex( 'right' ); 
-?>
+		</main>	
+		<?php $cols->diamonds_flex( 'right' ); ?>	
 <?php get_footer(); ?>

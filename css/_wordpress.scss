@@ -215,109 +215,6 @@ a img.aligncenter {
 ***  Gallery 
 **************************
 *************************/
-
-.gallery {
-	overflow: hidden;
-}
-.gallery-item {
-	margin: 1rem;
-	float: left;
-}
-.gallery-caption {
-	max-width: 150px;
-	max-height: 8rem;
-	overflow: hidden;
-}
-.gallery-columns-1 .gallery-item {
-	clear: both;
-}
-.gallery-columns-2 .gallery-item:nth-of-type(odd),
-.column.half .gallery .gallery-item:nth-of-type(odd),
-.column.two-thirds .gallery .gallery-item:nth-of-type(odd) {
-	clear: left;
-}
-.gallery-columns-2 .gallery-item:nth-of-type(even),
-.column.half .gallery .gallery-item:nth-of-type(even),
-.column.two-thirds .gallery .gallery-item:nth-of-type(even) {
-	clear: none;
-}
-.gallery-columns-3 .gallery-item:nth-of-type(3n+1) {
-	clear: left;
-}
-.gallery-columns-4 .gallery-item {
-	width: 120px;
-	margin: 1rem .8rem;
-}
-.gallery-columns-4 .gallery-item .gallery-icon img {
-	max-height: 120px;
-}
-.gallery-columns-4 .gallery-item:nth-of-type(4n+1) {
-	clear: left;
-}
-.gallery-columns-5 .gallery-item {
-	width: 95px;
-	margin: 1rem .8rem;
-}
-.gallery-columns-5 .gallery-item .gallery-icon img {
-	max-height: 95px;
-}
-.gallery-columns-5 .gallery-item:nth-of-type(5n+1) {
-	clear: left;
-}
-.gallery-columns-6 .gallery-item {
-	width: 80px;
-	margin: 1rem .6rem;
-}
-.gallery-columns-6 .gallery-item .gallery-icon img {
-	max-height: 80px;
-}
-.gallery-columns-6 .gallery-item:nth-of-type(6n+1) {
-	clear: left;
-}
-.gallery-columns-7 .gallery-item {
-	width: 72px;
-	margin: 1rem .3rem;
-}
-.gallery-columns-7 .gallery-item .gallery-icon img {
-	max-height: 72px;
-}
-.gallery-columns-7 .gallery-item:nth-of-type(7n+1) {
-	clear: left;
-}
-.gallery-columns-8 .gallery-item {
-	width: 68px;
-	margin: 0;
-}
-.gallery-columns-8 .gallery-item figcaption {
-	display: none;
-}
-.gallery-columns-8 .gallery-item a {
-	float:left;
-	max-height: 68px;
-}
-.gallery-columns-8 .gallery-item .gallery-icon img {
-	max-height: 68px;
-}
-.gallery-columns-8 .gallery-item:nth-of-type(8n+1) {
-	clear: left;
-}
-.gallery-columns-9 .gallery-item {
-	width: 60px;
-	margin: 0;
-}
-.gallery-columns-9 .gallery-item figcaption {
-	display: none;
-}
-.gallery-columns-9 .gallery-item a {
-	float:left;
-	max-height: 60px;
-}
-.gallery-columns-9 .gallery-item .gallery-icon img {
-	max-height: 60px;
-}
-.gallery-columns-9 .gallery-item:nth-of-type(9n+1) {
-	clear: left;
-}
 .gallery {
 	margin: auto;
 	overflow: auto;
@@ -398,7 +295,7 @@ a img.aligncenter {
 		clear: both;
 	}
 	img {
-		max-width: 110px;
+		max-width: 105px;
 		height: auto;
 	}
 }
@@ -410,7 +307,7 @@ a img.aligncenter {
 		clear: both;
 	}
 	img {
-		max-width: 100px;
+		max-width: 90px;
 		height: auto;
 	}
 }
@@ -422,10 +319,11 @@ a img.aligncenter {
 		clear: both;
 	}
 	img {
-		max-width: 90px;
+		max-width: 80px;
 		height: auto;
 	}
 }
+
 
 /*************************
 **************************
@@ -470,10 +368,10 @@ ol.commentlist ul li.comment {
 .tiled-gallery {
     margin: 0 auto 20px !important; 
     width: 100%;
-    max-width: 800px;
+    max-width: 778px;
 }
 .format-image img {
-	width: 100%;
+	width: initial;
 	height: auto;
 }
 .format-aside header,
@@ -497,4 +395,103 @@ ol.commentlist ul li.comment {
 .format-chat p {
 	font-family: "Lucida Console","Lucida Sans Typewriter",monaco,"Bitstream Vera Sans Mono",monospace;
 	margin: $margin*2 0;
+}
+
+#description {
+	margin-top: 1rem;
+}
+.maker {
+	position: relative;
+}
+.maker p {
+	text-align: justify;
+}
+	
+.maker .diamond-box-wrap {
+	position: absolute;
+	right: -8px; 
+}
+
+.row0 {
+	float: left;
+	clear: left;
+	height: 22.4px;
+	width: 0px; 
+}
+
+.row1 {
+	float: right;
+	clear: right;
+	height: 22.4px;
+	width: 148px; 
+}
+
+.row2 {
+	float: right;
+	clear: right;
+	height: 22.4px;
+	width: 173px; 
+}
+
+.row3 {
+	float: right;
+	clear: right;
+	height: 22.4px;
+	width: 199px; 
+}
+
+.row4 {
+	float: right;
+	clear: right;
+	height: 22.4px;
+	width: 225px; 
+}
+
+.row5 {
+	float: right;
+	clear: right;
+	height: 22.4px;
+	width: 250px; 
+}
+
+.row6 {
+	float: right;
+	clear: right;
+	height: 22.4px;
+	width: 228px; 
+}
+
+.row7 {
+	float: right;
+	clear: right;
+	height: 22.4px;
+	width: 206px; 
+}
+
+.row8 {
+	float: right;
+	clear: right;
+	height: 22.4px;
+	width: 184px; 
+}
+
+.row9 {
+	float: right;
+	clear: right;
+	height: 22.4px;
+	width: 163px; 
+}
+
+.row10 {
+	float: right;
+	clear: right;
+	height: 22.4px;
+	width: 141px; 
+}
+
+.row11 {
+	float: right;
+	clear: right;
+	height: 22.4px;
+	width: 0px; 
 }

@@ -1,61 +1,59 @@
 <?php
 /**
+ * The template for displaying Comments
+ *
+ * The area of the page that contains comments and the comment form.
+ *
  * @package WordPress
- * @subpackage Theme_Compat
- * @deprecated 3.0
- *
- * This file is here for Backwards compatibility with old themes and will be removed in a future version
- *
+ * @subpackage Twenty_Thirteen
+ * @since Twenty Thirteen 1.0
  */
-_deprecated_file( sprintf( __( 'Theme without %1$s', 'diamonds' ), basename(__FILE__) ), '3.0', null, sprintf( __('Please include a %1$s template in your theme.', 'diamonds'), basename(__FILE__) ) );
 
-// Do not delete these lines
-	if (!empty($_SERVER['SCRIPT_FILENAME']) && 'comments.php' == basename($_SERVER['SCRIPT_FILENAME']))
-		die ('Please do not load this page directly. Thanks!');
-
-	if ( post_password_required() ) { ?>
-		<p class="nocomments"><?php _e('This post is password protected. Enter the password to view comments.', 'diamonds'); ?></p>
-	<?php
-		return;
-	}
+/*
+ * If the current post is protected by a password and the visitor has not yet
+ * entered the password we will return early without loading the comments.
+ */
+if ( post_password_required() )
+	return;
 ?>
 
-<!-- You can start editing here. -->
-<?php if ( is_singular() ) wp_enqueue_script( "comment-reply" ); ?>
-<?php if ( have_comments() ) : ?>
-	<h3 id="comments"><?php	printf( _n( 'One Response to %2$s', '%1$s Responses to %2$s', get_comments_number() ),
-									number_format_i18n( get_comments_number() ), '&#8220;' . get_the_title() . '&#8221;' ); ?></h3>
+<div id="comments" class="comments-area">
 
-	<section class="navigation row clearfix">
-		<div class="alignleft"><?php previous_comments_link() ?></div>
-		<div class="alignright"><?php next_comments_link() ?></div>
-	</section>
+	<?php if ( have_comments() ) : ?>
+		<h2 class="comments-title">
+			<?php
+				printf( _nx( 'One thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'diamonds' ),
+					number_format_i18n( get_comments_number() ), '<span>' . get_the_title() . '</span>' );
+			?>
+		</h2>
 
-	<ol class="commentlist">
-	<?php wp_list_comments( array( 'avatar_size' => '60' ) );?>
-	</ol>
+		<ol class="comment-list">
+			<?php
+				wp_list_comments( array(
+					'style'       => 'ol',
+					'short_ping'  => true,
+					'avatar_size' => 74,
+				) );
+			?>
+		</ol><!-- .comment-list -->
 
-	<section class="navigation row clearfix">
-		<div class="alignleft"><?php previous_comments_link() ?></div>
-		<div class="alignright"><?php next_comments_link() ?></div>
-	</section>
- <?php else : // this is displayed if there are no comments so far ?>
+		<?php
+			// Are there comments to navigate through?
+			if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
+		?>
+		<nav class="navigation comment-navigation" role="navigation">
+			<h1 class="screen-reader-text section-heading"><?php _e( 'Comment navigation', 'diamonds' ); ?></h1>
+			<div class="nav-previous"><?php previous_comments_link( __( '&larr; Older Comments', 'diamonds' ) ); ?></div>
+			<div class="nav-next"><?php next_comments_link( __( 'Newer Comments &rarr;', 'diamonds' ) ); ?></div>
+		</nav><!-- .comment-navigation -->
+		<?php endif; // Check for comment navigation ?>
 
-	<?php if ( comments_open() ) : ?>
-		<!-- If comments are open, but there are no comments. -->
+		<?php if ( ! comments_open() && get_comments_number() ) : ?>
+		<p class="no-comments"><?php _e( 'Comments are closed.' , 'diamonds' ); ?></p>
+		<?php endif; ?>
 
-	 <?php else : // comments are closed ?>
-		<!-- If comments are closed. -->
-		<p class="nocomments"><?php _e('Comments are closed.', 'diamonds'); ?></p>
+	<?php endif; // have_comments() ?>
 
-	<?php endif; ?>
-<?php endif; ?>
+	<?php comment_form(); ?>
 
-<?php if ( comments_open() ) : ?>
-
-<section class="row clearfix respond">
-
-<?php comment_form(); ?>
-</section>
-
-<?php endif; // if you delete this the sky will fall on your head ?>
+</div><!-- #comments -->

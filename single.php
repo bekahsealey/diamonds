@@ -1,13 +1,9 @@
-<?php get_header(); ?>
-<?php 
-	$cols = new diamondsFlexCol();
-	$mainWidth = $cols->_maincol_width;
-	$thumbSize = $cols->_size;
-	$cols->diamonds_flex( 'left' );
-?>
-	<div id="main" class="column <?php echo $mainWidth; ?>">
+<?php get_header(); ?><?php global $cols; global $mainWidth; global $thumbSize; ?>
+		<?php $cols->diamonds_flex( 'left' ); ?>
+		<main class="col-<?php echo $mainWidth; ?>">
 		<?php if (have_posts() ) : while ( have_posts() ) : the_post(); ?>
-					<?php get_template_part( 'format', get_post_format() ); ?>
+		<?php if ( has_post_thumbnail() ) { ?><figure><?php the_post_thumbnail( $thumbSize ); ?><figcaption><?php the_post_thumbnail_caption(); ?></figcaption></figure><?php } ?>
+					<?php get_template_part( 'content', get_post_format() ); ?>
 					<section class="clearfix">
 						<nav id="pagi" class="clearfix">
 							<ul>
@@ -17,16 +13,14 @@
 						</nav><!-- .pagination -->
 					</section>
 	
-			<section class="row clearfix">
-				<div class="comments column full no-float">
+			<section class="clearfix">
+				<div class="comments">
 					<?php comments_template( '', true ); ?>
 				</div><!-- comments-->
 			</section>
 		<?php endwhile; else: ?>
 			<p><?php _e( 'Sorry, no posts matched your criteria.', 'diamonds' ); ?></p>
 		<?php endif; ?>
-	</div>
-<?php 
-	$cols->diamonds_flex( 'right' );  
-?>
+		</main>	
+<?php $cols->diamonds_flex( 'right' ); ?>	
 <?php get_footer(); ?>

@@ -1,7 +1,26 @@
 addLoadEvent(function() {
 	resizeColumns("flex-column");
 	resizeWidgets("flex", "aside");
+	removeTrailingSeparator( "breadcrumbs", "&nbsp;&gt;&nbsp;" );
 });
+
+function removeTrailingSeparator( elem, text ) {
+	if ( !document.getElementById || !document.getElementsByTagName) return false;
+	if ( !document.getElementById( elem ) ) return false;
+	
+	var breadcrumbs = document.getElementById( elem );
+	var items = breadcrumbs.getElementsByTagName( "li" );
+	for (e=0; e<items.length; e++) {
+		if ( items[e].innerHTML == "" ) {
+			breadcrumbs.removeChild(items[e]);
+		}
+	}
+	var last = items[items.length - 1];
+	var match = items[items.length - 1].innerHTML;
+	if ( match == text) {
+			breadcrumbs.removeChild(last);
+	}
+}
 
 function resizeWidgets(classname, tag) {
 	if (!document.getElementsByClassName || !document.getElementsByTagName) return false;
@@ -55,13 +74,13 @@ function resizeColumns(flex) {
 function convertToWord(num) {
 	//alert (num);
 	if (num == 1) {
-		return "full no-float";
+		return "col-1-1 no-float";
 	} else if (num == 2) {
-		return "half";
+		return "col-1-2";
 	} else if (num == 3) {
-		return "third";
+		return "col-1-3";
 	} else if (num >= 4) {
-		return "fourth";
+		return "col-1-4";
 	}
 }
 

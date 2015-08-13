@@ -27,62 +27,12 @@ $text-shadow: lighten($charcoal, 25%) 0px 1px 2px;
 $margin: 1rem;
 $pad: 20px;
 
-
-/*****************
-*
-* Images
-*
-*****************/
-#custom-header {
-	box-shadow: none;
-}
-figure:not(.gallery-item) {
-	width: 100%;
-	margin: 0 auto 3rem;
-}
-.column.half figure:not(.gallery-item), .vert figure:not(.gallery-item) {
-	max-width: 480px;
-}
-.column.two-thirds figure:not(.gallery-item) {
-	max-width: 580px;
-}
-.column.three-quarters figure:not(.gallery-item), .horiz figure:not(.gallery-item) {
-	max-width: 720px;
-}
-figure:not(.gallery-item) img:not(#custom-header) { 
-	width: 100%;
-	box-shadow: 0 2px 4px $charcoal;
-}
-figcaption  {
-	font-style: italic;
-	text-align: center;
-	font-size: 1.8rem;
-	line-height: 1.4;
-}
-img:not(#custom-header) {
-	max-width: 100%;
-}
-section>figure:not(.gallery-item).column {
-	margin: 0 auto 3em;
-	width: inherit;
-}
-section>figure:not(.gallery-item) img { 
-	width: auto;
-}
-
 /*****************
 *
 * Layout & Design
 *
 *****************/
-/* set up responsive grid */
-*,
-*:before,
-*:before {
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-}
+
 .clearfix:before,
 .clearfix:before {
 	content: " ";
@@ -91,101 +41,86 @@ section>figure:not(.gallery-item) img {
 .clearfix:before {
 	clear: both;
 }
-.row {
-	margin: 5rem auto;
-	overflow: auto;
-}
-section.row {
-	padding-top: 4.8rem;
-	overflow: hidden;
-	position: relative;
-}
-section.row.archive-header {
-	padding-top: 1rem;
-	margin-bottom: 5rem;
-}
-section figure {
-	margin-bottom: 3rem;
-}
 body {
 	background: $background-color;
 	font-family: $body-font;
 	color: $body-color;
 	font-size: 1.6rem;
 }
- #menu-main {
-	display:none;
+#page-header,
+.wrapper {
+	width: 100%;
+	padding: 0 $pad/5;
 }
-.menu-main-container {
-	display: none;
-}
-.slicknav_menu {
-	display:block;
-}
-.slicknav_menu span {
-	margin: 0;
-}
-.wrapper>header {
+#page-header {
 	background: $white;
 	box-shadow: 1px 0px 3px $charcoal;
 	position: relative;
 	z-index: 10;
 }
-.wrapper>header h1 {
+#page-header h1 {
 	background: url(favicon.ico) left 2px no-repeat;
 	background-size: 48px;
 	text-indent: 50px;
 	line-height: 50px;
-	margin-bottom: 0;
-	width: 90%;
 	margin: 0;
+	color: $heading-color;
 }
-.wrapper>header em {
+#page-header em {
 	font-size: 0.8em;
 	display: block;
 }
-.wrapper>header span {
-	font-family: $body-font;
-}
-.wrapper>header a:active {
+#page-header a:active {
 	color: $green;
 }
-.wrapper>header div.column.half {
-	position: relative;
-}
-header a {
+#page-header:before {
+	content: "";
 	display: block;
+	background: #4FDC70;
+	background: -moz-linear-gradient(top,  #398f55 0%, #43d472 40%, #4fdc70 40%, #4fdc70 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#398f55), color-stop(40%,#43d472), color-stop(40%,#4fdc70), color-stop(100%,#4fdc70)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #398f55 0%,#43d472 40%,#4fdc70 40%,#4fdc70 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #398f55 0%,#43d472 40%,#4fdc70 40%,#4fdc70 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #398f55 0%,#43d472 40%,#4fdc70 40%,#4fdc70 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #398f55 0%,#43d472 40%,#4fdc70 40%,#4fdc70 100%); /* W3C */
+    position: absolute;
+    width: 100%;
+    height: 6px;
+    bottom: -6px;
+    left: 0;
 }
-header ul {
-	margin-left: 0;
+.wrapper {
+	margin-top: 6px;
 }
-header ul a {
-	display: inline;
+#top {
+	margin: 1rem auto;
 }
-main {
-	border-top: 6px $green solid;
+section {
+	margin: 2rem 0;
+	padding-top: 4.8rem;
+	overflow: hidden;
 	position: relative;
-	z-index: 1;
 }
-div#top {
-	margin: -3em auto -6em;
+section.archive-header {
+	padding-top: 1rem;
 }
-x#main {
-	margin-top: 3rem;
-}
-#breadcrumbs {
-	display: none;
+section figure {
+	margin-bottom: 3rem;
 }
 article {
 	border-top: 4px $green solid;
 	padding: 0 10px;
 	position: relative;
+    overflow: visible !important;
 }
 article>header {
 	margin: 1rem 0 1.8rem 14rem;
 }
-header+ul.meta {
-	margin-left: 13rem;
+article footer {
+    margin: 1rem 0;
+}
+.meta li {
+	margin: 0.6rem 0;
 }
 .date-meta {
 	list-style: none;
@@ -193,7 +128,7 @@ header+ul.meta {
 	float: left;
 	position: absolute;
 	top: -30px;
-	left: -20px;
+	left: 0;
 	z-index: 1;
 }
 .date-meta li {
@@ -284,24 +219,59 @@ ul.date-meta li a:active, ul.date-meta li a:active .icon,
 .sticky .date-meta.post-icon a:active, .sticky .date-meta.post-icon a:active .icon {
 	color: $green;
 }
-footer:last-of-type {
-	overflow: auto;
+#page-footer {
 	width: 100%;
 }
-footer .row {
-	margin: 0 auto;
-}
 #footer-sidebar {
+	padding: $pad $pad/5;
 	background: darken($med-gray, 5%);
 	border-top: 6px $green solid;
 	box-shadow: 0 -1px 3px $charcoal;
 	overflow: auto;
 }
 #footer-meta {
+	padding: $pad/5;
 	background: lighten($med-gray, 20%);
 	overflow: auto;
 	color: $heading-color;
 }
-footer .brand {
-	text-align: right;
+#footer-meta div {
+	margin: $margin 0;
+}
+
+/*****************
+*
+* Images
+*
+*****************/
+#custom-header {
+	box-shadow: none;
+}
+figure:not(.gallery-item) {
+	margin: 4rem auto 3rem;
+}
+.col-1-2 figure:not(.gallery-item), .vert figure:not(.gallery-item) {
+	max-width: 480px;
+}
+.col-2-3 figure:not(.gallery-item) {
+	max-width: 580px;
+}
+.col-3-4 figure:not(.gallery-item), .horiz figure:not(.gallery-item) {
+	max-width: 720px;
+}
+figure:not(.gallery-item) img:not(#custom-header) {
+    display: block;
+	height: auto;
+	box-shadow: 0 2px 4px $charcoal;
+	margin: auto;
+}
+figcaption  {
+	font-style: italic;
+	text-align: center;
+	font-size: 1.8rem;
+	line-height: 1.4;
+}
+section>figure:not(.gallery-item)[class*='col-'] {
+	margin: 0 auto 3em;
+	width: inherit;
 }

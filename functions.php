@@ -27,21 +27,23 @@ if ( ! isset( $content_width ) ) {
 /**
  * Generate Featured Image thumbnail sizes
  */
-add_image_size( 'three-quarters-post', 720, 240, true );
-add_image_size( 'three-quarters-page', 720, 400, true );
-add_image_size( 'two-thirds-post', 580, 240, true );
-add_image_size( 'two-thirds-page', 580, 400, true );
-add_image_size( 'half-post', 480, 240, true );
-add_image_size( 'half-page', 480, 400, true );
-add_image_size( 'vert-gallery', 480, 640, true );
-add_image_size( 'horiz-gallery', 720, 540, true );
-add_image_size( 'post-thumb', 700, 167, true );
-add_image_size( 'sm-post-thumb', 180, 180, true );
-add_image_size( 'diamonds-thumb', 250, 250, true );
-add_image_size( 'full-post', 960, 240, true );
-add_image_size( 'full-page', 960, 400, true );
-add_image_size( 'full-featured', 960, 720, true );
-
+ add_action( 'after_setup_theme', 'diamonds_image_setup' );
+function diamonds_image_setup() {
+	add_image_size( 'three-quarters-post', 720, 240, true );
+	add_image_size( 'three-quarters-page', 720, 400, true );
+	add_image_size( 'two-thirds-post', 580, 240, true );
+	add_image_size( 'two-thirds-page', 580, 400, true );
+	add_image_size( 'half-post', 480, 240, true );
+	add_image_size( 'half-page', 480, 400, true );
+	add_image_size( 'vert-gallery', 480, 640, true );
+	add_image_size( 'horiz-gallery', 720, 540, true );
+	add_image_size( 'post-thumb', 700, 167, true );
+	add_image_size( 'sm-post-thumb', 180, 180, true );
+	add_image_size( 'diamonds-thumb', 250, 250, true );
+	add_image_size( 'post', 960, 240, true );
+	add_image_size( 'page', 960, 400, true );
+	add_image_size( 'featured', 960, 720, true );
+}
 add_theme_support( 'post-thumbnails' );
 
 /**
@@ -98,15 +100,16 @@ add_theme_support( 'custom-background' );
  
 function diamonds_scripts() {
 	wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/js/modernizr.js', array( 'jquery' ), '2.8.3', true );
+	wp_enqueue_style( 'fonts', 'http://fonts.googleapis.com/css?family=Quicksand:300,400,700%7cCalligraffitti' );
 	wp_enqueue_style( 'slicknav', get_template_directory_uri() . '/css/slicknav.css' );
 	wp_enqueue_style( 'diamond-gallery', get_template_directory_uri() . '/css/diamonds.css' );
 	wp_enqueue_style( 'fancybox',  get_template_directory_uri() . '/css/jquery.fancybox.css' ); 
 	wp_enqueue_script( 'diamonds-js', get_template_directory_uri() . '/js/jquery.diamonds.js', array( 'jquery' ), '1.0.0', true );
+	wp_enqueue_script( 'flex-js', get_template_directory_uri() . '/js/flex.js', array( 'jquery' ), '1.0.0', true );
 	wp_enqueue_script( 'slicknav-js', get_stylesheet_directory_uri() . '/js/jquery.slicknav.js', array( 'jquery' ), '1.0.4', false );
 	wp_enqueue_script( 'fancybox-js', get_stylesheet_directory_uri() . '/js/jquery.fancybox.js', array( 'jquery' ), '2.1.5', true );
 	wp_enqueue_script( 'fancybox-load', get_template_directory_uri() . '/js/jquery.fancybox.load.js', array( 'fancybox-js' ), '2.1.5', true );
 	wp_enqueue_script( 'all', get_template_directory_uri() . '/js/all.js', array( 'jquery' ), '1.0.0', true ); 
-	wp_enqueue_style( 'fonts', 'http://fonts.googleapis.com/css?family=Quicksand:300,400,700%7cCalligraffitti' );
 	if (is_page( 221 )){
 		wp_enqueue_script( 'showHide', get_template_directory_uri() . '/js/showHide.js', array( 'jquery' ), '1.0.0', false );
 	}
@@ -122,7 +125,7 @@ function diamonds_widget_init() {
 		'name' => __( 'Footer', 'diamonds' ),
 		'id' => 'footer-sidebar',
 		'description' => 'Widgets placed here will display at the bottom',
-		'before_widget' => '<aside class="widget column">',
+		'before_widget' => '<aside class="widget">',
 		'after_widget' => '</aside>',
 		'before_title' => '<h2 class="widgettitle">',
 		'after_title' => '</h2>',
@@ -199,7 +202,7 @@ function diamonds_widget_init() {
 		'name' => __( 'Search', 'diamonds' ),
 		'id' => 'search-sidebar',
 		'description' => 'Widgets placed here will display in a search and 404 page footer',
-		'before_widget' => '<aside class="widget column">',
+		'before_widget' => '<aside class="widget">',
 		'after_widget' => '</aside>',
 		'before_title' => '<h2 class="widgettitle">',
 		'after_title' => '</h2>',
@@ -274,51 +277,54 @@ function the_post_thumbnail_caption() {
 
 function the_breadcrumb() {
     global $post;
-    if ( ( is_home() && !get_option( 'show_on_front' ) == 'posts' ) || ( is_front_page() && get_option( 'show_on_front' ) == 'page' ) ) {
-		return;
-	} else {
-    echo '<ul id="breadcrumbs">';
-        echo '<li><a href="';
-        echo home_url( '/' );
-        echo '">';
-        echo 'Home';
-        echo '</a></li><li> > </li>'; 
-		if ( is_home() )  {
-			echo '<li>'; $whichpage = get_option( 'page_for_posts' ); echo get_the_title($whichpage); echo '</li>';
-		} elseif ( is_single() ) {
-            echo '<li>';
-            the_category(' &bull; ', 'single');
-            if (is_single()) {
-                echo '</li><li> > </li><li>';
-                the_title();
-                echo '</li>';
-            }
-    		elseif ( !have_posts() ) { echo single_cat_title( '', false ); }
+    if ( is_front_page() ) { return; } else {
+    echo '<ul id="breadcrumbs" class="col-2-3">';
+    	if ( !is_home() || !is_front_page() ) {
+    		echo '<li><a href="';
+    		$url = home_url( '/' );
+			echo $url;
+    		echo '">';
+    		echo 'Home';
+    		echo '</a></li><li>&nbsp;&gt;&nbsp;</li>';
+        	if (is_category() || is_single() || ( is_home() && !is_front_page() ) ) {
+            	echo '<li>';
+            	if( is_category() ) {
+            		$cat = get_query_var('cat');
+        			echo get_category_parents( $cat, true, '</li><li>&nbsp;&gt;&nbsp;</li><li>' );
+          	  		echo'</li>';
+        		}
+        		elseif ( ( is_home() && !is_front_page() ) ) {
+          	  		echo ucwords(basename($_SERVER['REQUEST_URI']));
+          	  		echo'</li>';
+            	}
+            	if ( is_single() ) {
+                	the_title();
+                	echo '</li>';
+            	}
+    			elseif ( !have_posts() ) { echo single_cat_title( '', false ); }
 			
-        } elseif ( is_page() ) {
-            if($post->post_parent){
-                $ancestors = get_post_ancestors( $post->ID );
-                foreach ( array_reverse( $ancestors ) as $ancestor ) {
-					$title = get_the_title();
-					$output = '';
-					$output .= '<li><a href="' . get_permalink( $ancestor ) . '" title="'.get_the_title( $ancestor ).'">'.get_the_title( $ancestor ).'</a></li> <li>></li>';
-                }
-                echo $output;
-                echo '<li>' . $title . '</li>';
-            } else {
-                echo '<li>'; the_title(); echo '</li>';
-            }
+        	} elseif ( is_page() ) {
+            	if($post->post_parent){
+                	$ancestors = get_post_ancestors( $post->ID );
+                	foreach ( array_reverse($ancestors) as $ancestor ) {
+						$title = get_the_title();
+                    	$output .= '<li><a href="x" title="'.get_the_title($ancestor).'">'.get_the_title($ancestor).'</a></li> <li>&nbsp;&gt;&nbsp;</li>';
+                	}
+                	echo $output;
+                	echo '<li>' . $title . '</li>';
+            	} else {
+                	echo '<li>'; the_title(); echo '</li>';
+            	}
+			}
+			elseif (is_tag()) {echo'<li>Search Results for "'; single_tag_title(); echo'" Tag</li>';}
+    		elseif (is_day()) {echo"<li>Archive for "; the_time('F jS, Y'); echo'</li>';}
+    		elseif (is_month()) {echo"<li>Archive for "; the_time('F, Y'); echo'</li>';}
+    		elseif (is_year()) {echo"<li>Archive for "; the_time('Y'); echo'</li>';}
+    		elseif (is_author()) {echo"<li>Author Archive"; echo'</li>';}
+    		elseif (isset($_GET['paged']) && !empty($_GET['paged'])) {echo "<li>Blog Archives"; echo'</li>';}
+    		elseif (is_search()) {echo'<li>Search Results for "' . get_search_query() . '"'; echo'</li>';}
+			echo '</ul>'; return;
 		}
-    elseif (is_category()) {echo'<li>Results for "'; single_cat_title(); echo'" Category</li>';}
-    elseif (is_tag()) {echo'<li>Results for "'; single_tag_title(); echo'" Tag</li>';}
-    elseif (is_day()) {echo"<li>Archive for "; _e( get_the_date() ); echo'</li>';}
-    elseif (is_month()) {echo"<li>Archive for "; _e( get_the_date('F Y') ); echo'</li>';}
-    elseif (is_year()) {echo"<li>Archive for "; _e( get_the_date('Y') ); echo'</li>';}
-    elseif (is_author()) {echo"<li>Author Archive"; echo'</li>';}
-    elseif (isset($_GET['paged']) && !empty($_GET['paged'])) {echo "<li>Blog Archives"; echo'</li>';}
-    elseif (is_search()) {echo'<li>Search Results for "' . get_search_query() . '"'; echo'</li>';}
-    elseif (is_post_type_archive( 'profile' )) {echo'<li>About</li><li> > </li><li>Profiles</li>';}
-	echo '</ul>';
 	}
 }
 
@@ -467,7 +473,7 @@ class diamondsFlexCol {
 		switch ( $pos ) {
 			case "left" :
 				if ( ! empty( $this->_leftcol_width ) ) {
-					echo '<div id="left" class="column ' . $this->_leftcol_width . '">';
+					echo '<div id="left" class="col-' . $this->_leftcol_width . '">';
 					if( is_front_page() ) {
 						get_sidebar( 'front-left' );
 					} else { 
@@ -478,7 +484,7 @@ class diamondsFlexCol {
 				break;
 			case "right" :
 				if ( ! empty( $this->_rightcol_width ) ) {
-					echo '<div id="right" class="column ' . $this->_rightcol_width . ' reverse">';
+					echo '<div id="right" class="col-' . $this->_rightcol_width . ' reverse">';
 					if( is_front_page() ) {
 						get_sidebar( 'front-right' );
 					} else { 
@@ -494,28 +500,28 @@ class diamondsFlexCol {
 		// using number of columns counted, assign width classes
 		switch ( $colWidths ) {
 			case "three" :
-				$this->_leftcol_width = 'fourth';
-				$this->_rightcol_width = 'fourth';
-				$this->_maincol_width = 'half';
+				$this->_leftcol_width = '1-4';
+				$this->_rightcol_width = '1-4';
+				$this->_maincol_width = '1-2';
 				$this->_size = 'half-page';
 				break;
 			case "two-left" :
-				$this->_leftcol_width = 'third';
-				$this->_maincol_width = 'two-thirds reverse';
+				$this->_leftcol_width = '1-3';
+				$this->_maincol_width = '2-3 reverse';
 				$this->_size = 'two-thirds-page';
 				break;
 			case "two-right" :
-				$this->_rightcol_width = 'third reverse';
-				$this->_maincol_width = 'two-thirds';
+				$this->_rightcol_width = '1-3 reverse';
+				$this->_maincol_width = '2-3';
 				$this->_size = 'two-thirds-page';
 				break;
 			case "single" :
-				$this->_maincol_width = 'three-quarters no-float';
+				$this->_maincol_width = '3-4 no-float';
 				$this->_size = 'three-quarters-page';
 				break;
 			case "full" :
-				$this->_maincol_width = 'full no-float';
-				$this->_size = 'full-post';
+				$this->_maincol_width = '1-1 no-float';
+				$this->_size = 'post';
 				break;
 		}
 	}
@@ -531,7 +537,7 @@ function diamonds_front_page_gallery() {
 			$args = array( 'category_name' => 'portfolio', 'posts_per_page' => 15, 'orderby' => 'rand' );
 			$gallery_query = new WP_Query( $args ); 
 			if ( $gallery_query->have_posts() ) :
-				echo '<div class="diamondswrap column full no-float">';
+				echo '<div class="diamondswrap col-1-1 no-float">';
 				while ( $gallery_query->have_posts() ) : $gallery_query->the_post(); 
 				if (has_post_thumbnail()) {
 					echo '<a href="'; the_permalink(); echo '" class="item">';
@@ -564,39 +570,30 @@ function diamonds_icons( $icons ) {
 add_shortcode( 'icon', 'diamonds_icons' );
 
 function diamonds_submenu() {
-			$currentid = get_the_id();
-			$currentpost = get_post( $currentid );
-			$has_children = get_pages('child_of='.$currentpost->ID);
-			if( count( $has_children ) == 0 && $currentpost->post_parent  && $currentid != 404) {
-				//collect siblings
-				$children = wp_list_pages("title_li=&child_of=".$currentpost->post_parent."&echo=0", 'sort_column=menu_order');
-			} elseif ($currentid == 404 || $currentpost->post_parent == 404 ){
-				$cat_args = array(
-					'child_of'                 => 24,
-					'orderby'                  => 'id',
-					'order'                    => 'ASC'
-				
-				); 
-				$categories = get_categories( $cat_args );
-				foreach ($categories as $cat) {
-					$children .= '<li><a href="/service/photography/'.$cat->slug . '">' . $cat->name . '</a></li>';
-				}
-
-			} else { 
-				//collect children
-				$children = wp_list_pages("title_li=&child_of=".$currentpost->ID."&echo=0", 'sort_column=menu_order');
-			}
-			if ( !$children || is_404() ) {
-				return;
-			} elseif ($children) { 
-				$child_pages = "";
-				$child_pages .= '<nav id="submenu">';
-				$child_pages .= '<ul class="menu">';
-				$child_pages .= $children;
-				$child_pages .= '</ul>';
-				$child_pages .= '</nav>'; 
-				return $child_pages;
-			}
+	if ( is_404() ) {
+		return; 
+	}
+	$currentid = get_the_id();
+	$currentpost = get_post( $currentid );
+	$has_children = get_pages('child_of='.$currentpost->ID);
+	if( count( $has_children ) == 0 && $currentpost->post_parent  && $currentid != 404) {
+		//collect siblings
+		$children = wp_list_pages("title_li=&child_of=".$currentpost->post_parent."&echo=0", 'sort_column=menu_order');
+	} else { 
+		//collect children
+		$children = wp_list_pages("title_li=&child_of=".$currentpost->ID."&echo=0", 'sort_column=menu_order');
+	}
+	if ( !$children || is_404() ) {
+		return;
+	} elseif ($children) { 
+		$child_pages = "";
+		$child_pages .= '<nav id="submenu">';
+		$child_pages .= '<ul class="menu">';
+		$child_pages .= $children;
+		$child_pages .= '</ul>';
+		$child_pages .= '</nav>'; 
+		return $child_pages;
+	}
 }
 add_shortcode( 'submenu', 'diamonds_submenu' );
 
@@ -659,30 +656,85 @@ add_filter('widget_text', 'do_shortcode');
 
 
 /**
- * Custom Post Types
+ * New Personal Profile options
  */
-add_action( 'init', 'create_post_type' );
-function create_post_type() {
-	register_post_type( 'profile',
-	array(
-	  'labels' => array(
-		'name' => __( 'Profiles', 'diamonds' ),
-		'singular_name' => __( 'Profile', 'diamonds' )
-	  ),
-	'public' => true,
-	'has_archive' => true,
-	'publicly_queryable' => true,
-	'show_ui'            => true,
-	'show_in_menu'       => true,
-	'menu_position'      => 100,
-	'menu_icon'			 => 'dashicons-groups',
-	'capability_type'    => 'post',
-	'hierarchical'       => false,
-	'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'revisions' ),
-	'taxonomies'           => array( 'category', 'post_tag' ),
-	'rewrite'            => array( 'slug' => 'about/profiles' )
-		)
-	  );
+
+add_action( 'show_user_profile', 'diamonds_add_profile_options' );
+add_action( 'edit_user_profile', 'diamonds_add_profile_options' );
+ 
+function diamonds_add_profile_options( $user ) { ?>
+ 
+<h3>Extra profile information</h3>
+ 
+<table class="form-table">
+ 
+<tr>
+<th><label for="user_title">Title</label></th>
+ 
+<td>
+<input type="text" name="user_title" id="user_title" value="<?php echo esc_attr( get_the_author_meta( 'user_title', $user->ID ) ); ?>" class="regular-text" />
+<span class="description">Enter your job title.</span>
+</td>
+</tr>
+ 
+ <tr>
+<th><label for="user_picture">Profile Picture</label></th>
+ 
+<td>
+<input type="text" name="user_picture" id="user_picture" value="<?php echo esc_attr( get_the_author_meta( 'user_picture', $user->ID ) ); ?>" class="regular-text" />
+<span class="description">Enter link to profile picture from media library (if none, defaults to Gravatar)</span>
+</td>
+</tr>
+</table>
+<?php }
+
+ 
+ function diamonds_add_profile_options_update(){
+  if(!isset($_POST['user_title']))
+   return;
+  //get user id
+  $user_id = get_current_user_id();
+  //validate submitted value otherwise set to default
+  $user_title = sanitize_text_field( $_POST['user_title'] );
+  //update user title
+  update_user_meta($user_id, 'user_title', $user_title);
+  if(!isset($_POST['user_picture']))
+   return;
+  //get user id
+  $user_id = get_current_user_id();
+  //validate submitted value otherwise set to default
+  $user_picture = sanitize_text_field( $_POST['user_picture'] );
+  $size = strpos( $user_picture, '-250x250.jpg' );
+  if ( !$size ) {
+  		$user_picture = str_replace( '.jpg', '-250x250.jpg', $user_picture );
+  	}
+  //update user picture
+  update_user_meta($user_id, 'user_picture', $user_picture);
+ }
+ add_action('personal_options_update','diamonds_add_profile_options_update');
+add_action( 'edit_user_profile_update', 'diamonds_add_profile_options_update' );
+
+/**
+ * Contact Methods
+ */
+
+function modify_user_contact_methods( $user_contact ) {
+
+	/* Add user contact methods */
+	$user_contact['facebook'] = __( 'Facebook' ); 
+	$user_contact['twitter'] = __( 'Twitter' );
+	$user_contact['skype'] = __( 'Skype' );
+	$user_contact['github'] = __( 'Github' );
+	$user_contact['pinterest'] = __( 'Pinterest' );
+	$user_contact['instagram'] = __( 'Instagram' );
+	$user_contact['linkedin'] = __( 'LinkedIn' );
+	$user_contact['codepen'] = __( 'Codepen' );
+	$user_contact['tumblr'] = __( 'Tumblr' );
+	
+	return $user_contact;
 }
+add_filter( 'user_contactmethods', 'modify_user_contact_methods' );
+
+
   
 ?>

@@ -32,11 +32,9 @@ $pad: 20px;
 	margin: 0 0 4rem;
 	overflow: hidden;
 }
-.widgettitle {
+.widgettitle, .subheading {
 	margin: 0 0 2rem 0;
-}
-.search form.search-form {
-	padding: 2rem 0.5rem;
+  	color: $heading-color;
 }
 .search form.search-form label {
 	width: 72%;
@@ -49,6 +47,5 @@ $pad: 20px;
 	padding: 2px 4px;
 }
 .search input[type="submit"] {
-	margin-top: 2rem;
-	font-size: 1.8rem;
+	font-size: 1.6rem;
 }
