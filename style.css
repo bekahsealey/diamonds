@@ -93,10 +93,11 @@ table {
   font-weight: normal;
   font-style: normal; }
 html {
-  font-size: 62.5%; }
+  font-size: 62.5%;
+  font-weight: 300; }
 
 .serif {
-  font-family: "Acknowledgement", "Rockwell Extra Bold", "Rockwell Bold", serif;
+  font-family: "Fontdiner Swanky", "Rockwell Extra Bold", "Rockwell Bold", serif;
   color: #2B2B2B;
   margin-bottom: 1rem; }
 
@@ -139,6 +140,9 @@ ul, ol {
 
 .widget ul, .widget ol {
   list-style: none; }
+
+.widgettitle {
+  font-family: "Fontdiner Swanky", "Rockwell Extra Bold", "Rockwell Bold", serif; }
 
 .column > ul, .column > ol {
   margin-bottom: 10px; }
@@ -192,7 +196,9 @@ dd a:hover {
   color: #fbfbf9; }
 
 em, blockquote, q {
-  font-family: "Calligraffitti", script; }
+  font-family: "Alegreya Sans", "Gill Sans", cambria, sans-serif;
+  font-weight: 100;
+  font-style: italic; }
 
 q {
   margin-left: 2rem; }
@@ -203,7 +209,7 @@ blockquote {
 blockquote:before {
   content: "\201C ";
   font-size: 8rem;
-  font-family: "Acknowledgement", "Rockwell Extra Bold", "Rockwell Bold", serif;
+  font-family: "Fontdiner Swanky", "Rockwell Extra Bold", "Rockwell Bold", serif;
   color: #2B2B2B;
   float: left;
   line-height: 1rem;
@@ -215,7 +221,7 @@ blockquote:after {
   clear: both; }
 
 cite {
-  font-family: "Quicksand", sans-serif;
+  font-family: "Alegreya Sansh", "Gill Sans", cambria, sans-serif;
   text-transform: uppercase;
   font-size: 1.2rem; }
 
@@ -263,9 +269,12 @@ var {
 *************************/
 form {
   width: 98%;
-  max-width: 540px;
+  max-width: 720px;
   margin: 0 auto;
-  overflow: auto; }
+  overflow: auto;
+  padding: 10px;
+  margin-bottom: 2rem;
+  clear: both; }
 
 form ul, form ol {
   list-style: none; }
@@ -298,8 +307,8 @@ legend {
 
 form ol, form ul {
   margin: 0 auto;
-  max-width: 500px;
-  width: 98%; }
+  width: 98%;
+  max-width: 600px; }
 
 form li {
   margin: .5em 0;
@@ -318,8 +327,8 @@ textarea {
   display: block;
   margin: 0 auto;
   padding: .2em .5em;
-  max-width: 400px;
   width: 98%;
+  max-width: 600px;
   line-height: 1.4;
   border-radius: 4px;
   border: 1px #b2b2b2 solid;
@@ -372,8 +381,8 @@ form#commentform input {
   display: inline-block;
   float: left;
   margin: 0.8rem 0;
-  max-width: 350px;
-  width: 80%; }
+  width: 80%;
+  max-width: 600px; }
 
 form#commentform input[type="submit"] {
   width: inherit;
@@ -900,7 +909,6 @@ ul.horiz li a,
 .header-sidebar ul.menu ul {
   display: none;
   position: absolute;
-  z-index: 1000;
   margin-left: 0;
   padding-left: 0;
   top: 100%;
@@ -965,8 +973,7 @@ body {
 #page-header {
   background: #fbfbf9;
   box-shadow: 1px 0px 3px #2B2B2B;
-  position: relative;
-  z-index: 10; }
+  position: relative; }
 
 #page-header h1 {
   background: url(favicon.ico) left 2px no-repeat;
@@ -1011,7 +1018,7 @@ body {
 #top {
   margin: 1rem auto; }
 
-section {
+section.post-wrap {
   margin: 2rem 0;
   padding-top: 4.8rem;
   overflow: hidden;
@@ -1032,6 +1039,9 @@ article {
 article > header {
   margin: 1rem 0 1.8rem 14rem; }
 
+.loop article > header {
+  margin: 5rem 0 1.8rem 0; }
+
 article footer {
   margin: 1rem 0; }
 
@@ -1044,8 +1054,7 @@ article footer {
   float: left;
   position: absolute;
   top: -30px;
-  left: 0;
-  z-index: 1; }
+  left: 0; }
 
 .date-meta li {
   display: inline-block;
@@ -1159,20 +1168,17 @@ ul.date-meta li a:active, ul.date-meta li a:active .icon,
 * Images
 *
 *****************/
+img {
+  width: initial;
+  height: auto;
+  max-width: 100%; }
+
 #custom-header {
   box-shadow: none; }
 
 figure:not(.gallery-item) {
-  margin: 4rem auto 3rem; }
-
-.col-1-2 figure:not(.gallery-item), .vert figure:not(.gallery-item) {
-  max-width: 480px; }
-
-.col-2-3 figure:not(.gallery-item) {
-  max-width: 580px; }
-
-.col-3-4 figure:not(.gallery-item), .horiz figure:not(.gallery-item) {
-  max-width: 720px; }
+  margin: 4rem auto 3rem;
+  max-width: 100%; }
 
 figure:not(.gallery-item) img:not(#custom-header) {
   display: block;
@@ -1379,7 +1385,8 @@ a img.aligncenter {
 *************************/
 .gallery {
   margin: auto;
-  overflow: auto; }
+  overflow: auto;
+  clear: both; }
 
 .gallery-item {
   float: left;
@@ -1537,13 +1544,13 @@ ol.commentlist ul li.comment {
 #description {
   margin-top: 1rem; }
 
-.maker {
+.author {
   position: relative; }
 
-.maker p {
+.author p {
   text-align: justify; }
 
-.maker .diamond-box-wrap {
+.author .diamond-box-wrap {
   position: absolute;
   right: -8px; }
 
@@ -1739,6 +1746,12 @@ ol.commentlist ul li.comment {
 
   .col-4-5 {
     width: 80%; }
+
+  main .col-1-2:nth-of-type(2n+1),
+  main .col-1-3:nth-of-type(3n+1),
+  main .col-1-4:nth-of-type(4n+1),
+  main .col-1-5:nth-of-type(5n+1) {
+    clear: left; }
 
   .header-sidebar ul.menu li ul li:hover > ul {
     top: 0;

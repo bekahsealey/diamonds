@@ -1,4 +1,4 @@
-				<section class="clearfix">
+				<section class="post-wrap clearfix">
 					<article id="post-<?php the_ID(); ?>" <?php post_class( 'grid' ); ?>>
 						<?php diamonds_page_icon(); ?>
 						<header>

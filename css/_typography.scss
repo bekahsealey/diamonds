@@ -12,15 +12,15 @@ $med-gray: #4d4d4d;
 $charcoal: #2B2B2B;
 
 $background-color: $med-gray;
-$body-font: "Quicksand", sans-serif;
+$body-font: "Alegreya Sansh", "Gill Sans", cambria, sans-serif;
 $body-color: $lt-gray;
 $heading-font: "Megalopolis", "Arial Black", "Arial Bold", Gadget, sans-serif;
 $heading-color: $charcoal;
 $link: $blue;
 $hover: $aqua;
 $active: $white;
-$serif-font: "Acknowledgement", "Rockwell Extra Bold", "Rockwell Bold", serif;
-$italic-font: "Calligraffitti", script;
+$serif-font: "Fontdiner Swanky", "Rockwell Extra Bold", "Rockwell Bold", serif;
+$italic-font: "Alegreya Sans", "Gill Sans", cambria, sans-serif;
 $monospace-font: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
 $text-shadow: lighten($charcoal, 25%) 0px 1px 2px;
 
@@ -64,6 +64,7 @@ $pad: 20px;
 
 html {
   font-size: 62.5%;
+  font-weight: 300;
 }
 .serif {
   font-family: $serif-font;
@@ -109,6 +110,9 @@ ul, ol {
 }
 .widget ul, .widget ol {
 	list-style: none;
+}
+.widgettitle {
+	font-family: $serif-font;
 }
 .column > ul, .column > ol {
 	margin-bottom: 10px;
@@ -163,6 +167,8 @@ dd a:hover {
 }
 em, blockquote, q {
 	font-family: $italic-font;
+	font-weight: 100;
+	font-style: italic;
 }
 q {
 	margin-left: 2rem;
@@ -234,9 +240,12 @@ var {
 *************************/
 form {
 	width: 98%;
-	max-width: 540px;
+	max-width: 720px;
 	margin: 0 auto; 
 	overflow: auto;
+	padding: $pad/2;
+	margin-bottom: $margin*2;
+	clear: both;
 }
 form ul, form ol {
 	list-style: none;
@@ -269,8 +278,8 @@ legend {
 }
 form ol, form ul {
 	margin: 0 auto;
-	max-width: 500px;
 	width: 98%; 
+	max-width: 600px;
 }
 form li {
 	margin: .5em 0;
@@ -289,8 +298,8 @@ textarea {
 	display: block;
 	margin: 0 auto;
 	padding: .2em .5em;
-	max-width: 400px;
 	width: 98%;
+	max-width: 600px;
 	line-height: 1.4;
 	border-radius: 4px;
 	border: 1px $lt-gray solid;
@@ -337,8 +346,8 @@ form#commentform input {
 	display: inline-block;
 	float: left;
 	margin: 0.8rem 0;
-	max-width: 350px;
 	width: 80%;
+	max-width: 600px;
 }
 form#commentform input[type="submit"] {
 	width: inherit;
@@ -867,7 +876,6 @@ ul.horiz li a,
 .header-sidebar ul.menu ul {
 	display: none;
 	position: absolute;
-	z-index: 1000;
 	margin-left: 0;
 	padding-left: 0;
 	top: 100%;

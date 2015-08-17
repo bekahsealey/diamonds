@@ -11,22 +11,22 @@
 				<p><?php _e( 'Sorry, no posts matched your criteria.', 'diamonds' ); ?></p>
 			<?php endif; ?>
 		<?php if ( get_users() ) { ?>
-			<?php $maker_query = new WP_User_Query(array ( 'orderby' => 'post_count', 'order' => 'DESC' ) );
-				if ( ! empty( $maker_query->results ) ) {
-		foreach ( $maker_query->results as $maker ) { ?>
+			<?php $author_query = new WP_User_Query(array ( 'orderby' => 'post_count', 'order' => 'DESC' ) );
+				if ( ! empty( $author_query->results ) ) {
+		foreach ( $author_query->results as $author ) { ?>
 					
 					<hr>
-						<aside id="maker-<?php echo $maker->ID; ?>" class="grid maker maker-<?php echo $maker->ID; ?>">
+						<aside id="author-<?php echo $author->ID; ?>" class="grid author author-<?php echo $author->ID; ?>">
 						
 							<header>
-								<a href="<?php echo get_author_posts_url( $maker->ID ); ?>" title="<?php esc_attr_e( 'For More Posts by ' ); echo $maker->display_name; ?>"><h2><?php echo $maker->first_name && $maker->last_name ? $maker->first_name.' '.$maker->last_name: $maker->display_name; ?></h2></a>
-								<h5 class="subheading"><?php echo $maker->user_title; ?></h5>
+								<a href="<?php echo get_author_posts_url( $author->ID ); ?>" title="<?php esc_attr_e( 'For More Posts by ' ); echo $author->display_name; ?>"><h2><?php echo $author->first_name && $author->last_name ? $author->first_name.' '.$author->last_name: $author->display_name; ?></h2></a>
+								<h5 class="subheading"><?php echo $author->user_title; ?></h5>
 							</header>
 							<div class="col-3-4 reverse">
 							<div class="diamond-box-wrap">
 								<div class="diamond-box">
 								<div class="diamond-box-inner">
-								<?php if ( $maker->user_picture ) { ?><img src="<?php echo $maker->user_picture; ?>"><?php } else { echo get_avatar( $maker->user_email, '250', 'mm', 'Avatar of '.$maker->first_name.' '.$maker->last_name ); } ?>
+								<?php if ( $author->user_picture ) { ?><img src="<?php echo $author->user_picture.'-250x250.jpg'; ?>"><?php } else { echo get_avatar( $author->user_email, '250', 'mm', 'Avatar of '.$author->first_name.' '.$author->last_name ); } ?>
 								</div>
 								</div>
 								</div>
@@ -54,27 +54,27 @@
 					<div class="row10"></div>
 					<div class="row0"></div>
 					<div class="row11"></div>
-								<?php $description = apply_filters( 'the_content', $maker->description );
+								<?php $description = apply_filters( 'the_content', $author->description );
 								$description = str_replace( ']]>', ']]&gt;', $description ); ?>
 								<?php echo $description; ?>
 							</div>
 							<footer class="col-1-4">
 								
 								<ul class="meta">
-									<li>Email: <a href="mailto:<?php echo $maker->user_email; ?>"><?php echo $maker->display_name; ?></a></li>
-									<li>Homepage: <?php $url = $maker->user_url ? $maker->user_url : get_author_posts_url( $maker->ID ); ?><a href="<?php echo $url; ?>"><?php echo $url; ?></a></li>
-									<li>Follow <?php echo $maker->display_name; ?> On:
+									<li>Email: <a href="mailto:<?php echo $author->user_email; ?>"><?php echo $author->display_name; ?></a></li>
+									<li>Homepage: <?php $url = $author->user_url ? $author->user_url : get_author_posts_url( $author->ID ); ?><a href="<?php echo $url; ?>"><?php echo $url; ?></a></li>
+									<li>Follow <?php echo $author->display_name; ?> On:
 										<ul>
 									<?php $contacts = wp_get_user_contact_methods(); 
 									foreach ( $contacts as $contact => $value ) {
-										if ( $maker->$contact ) {
+										if ( $author->$contact ) {
 									?>
-										<li><a href="<?php echo $maker->$contact; ?>"><?php echo $value; ?></a></li>
+										<li><a href="<?php echo $author->$contact; ?>"><?php echo $value; ?></a></li>
 										
 										<?php } ?>
 									<?php } ?>
 										</ul>
-									<li><?php $edit = __( 'Edit user profile', 'diamonds'  ); ?><a href="<?php echo get_edit_user_link( $maker->ID ); ?>"><?php echo $edit; ?></a></li>
+									<li><?php $edit = __( 'Edit user profile', 'diamonds'  ); ?><a href="<?php echo get_edit_user_link( $author->ID ); ?>"><?php echo $edit; ?></a></li>
 								</ul>
 							</footer>
 						</aside><!-- /row -->	

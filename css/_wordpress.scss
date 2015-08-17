@@ -218,6 +218,7 @@ a img.aligncenter {
 .gallery {
 	margin: auto;
 	overflow: auto;
+	clear: both;
 }
 .gallery-item {
 	float: left;
@@ -400,14 +401,14 @@ ol.commentlist ul li.comment {
 #description {
 	margin-top: 1rem;
 }
-.maker {
+.author {
 	position: relative;
 }
-.maker p {
+.author p {
 	text-align: justify;
 }
 	
-.maker .diamond-box-wrap {
+.author .diamond-box-wrap {
 	position: absolute;
 	right: -8px; 
 }

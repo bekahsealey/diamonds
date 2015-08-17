@@ -97,10 +97,9 @@ add_theme_support( 'custom-background' );
 /**
  * Enqueue scripts and styles
  */
- 
 function diamonds_scripts() {
 	wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/js/modernizr.js', array( 'jquery' ), '2.8.3', true );
-	wp_enqueue_style( 'fonts', 'http://fonts.googleapis.com/css?family=Quicksand:300,400,700%7cCalligraffitti' );
+	wp_enqueue_style( 'fonts', 'http://fonts.googleapis.com/css?family=Fontdiner+Swanky%7cAlegreya+Sans:400,300,300italic,400italic,100italic,100' );
 	wp_enqueue_style( 'slicknav', get_template_directory_uri() . '/css/slicknav.css' );
 	wp_enqueue_style( 'diamond-gallery', get_template_directory_uri() . '/css/diamonds.css' );
 	wp_enqueue_style( 'fancybox',  get_template_directory_uri() . '/css/jquery.fancybox.css' ); 
@@ -528,7 +527,7 @@ class diamondsFlexCol {
 }
 
 function diamonds_front_page_gallery() {
-		if (!is_front_page()) {
+		if ( !is_front_page()) {
 			return; 
 		} else {
 			/* 
@@ -598,25 +597,48 @@ function diamonds_submenu() {
 add_shortcode( 'submenu', 'diamonds_submenu' );
 
 function diamonds_loop( $args ) {
-	// Attributes
-	extract( shortcode_atts( array(
-		'category',
-		'num' => '1',
-		'thumb' => 'medium',
-		'cols' => 'three-quarters'
-	), $args ) );
-	$post_num = (int)str_replace(' ', '', $args['num']);
-	$thumbSize = $args['thumb'];
-	$cols = 'column ' . $args['cols'];
+	//  Attributes
+// 	echo '<pre>';
+// 	var_dump($args);
+// 	echo '</pre>';
+	$a = shortcode_atts( array(
+		'category' => '', //category name
+		'num' => '1', //number of posts to retrieve
+		'type' => 'archive', //style as archive, index, or diamonds 
+		'cols' => '1'
+	), $args );
+// 	echo '<pre>';
+// 	var_dump($a);
+// 	echo '</pre>';
+// 	exit;
+	$post_num = (int)str_replace(' ', '', $a['num']);
+	if ( $a['type'] == 'index' ) {
+		$thumbSize = 'post';
+		$align = 'aligncenter';
+	} else {
+		$thumbSize = 'sm-post-thumb';
+		$align = 'alignleft';
+	}
+	$cols = 'col-1-' . $a['cols'];
 	//var_dump($cat_ids);
 	//exit;
-
-		$cat_query = new WP_Query( array( 'category_name' => $args['category'] , 'posts_per_page' => $post_num) ); 
-		if ( $cat_query->have_posts() && !is_404() ) : ?>
+		?>
+		<?php $cat_query = new WP_Query( array( 'category_name' => $a['category'] , 'posts_per_page' => $post_num) ); ?>
+		<div class="loop">
+		<?php if ( $cat_query->have_posts() && !is_404() ) : ?>
 		<?php while ( $cat_query->have_posts() ) : ##all other cases for single and lists: post, custom post type, page, archives, search, 404 ?>
-			<?php $cat_query->the_post(); ?>
-			<section class="<?php echo $cols; ?>">
-				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+		<?php $cat_query->the_post(); ?>
+		<?php if ($a['type'] == 'diamonds' ) { ?>
+				<div class="diamond-box-wrap">
+					<div class="diamond-box">
+						<div class="diamond-box-inner">
+				<?php if ( has_post_thumbnail() ) { ?><a href="<?php the_permalink(); ?>" title="<?php esc_attr_e( 'For More Info on ' ); the_title_attribute(); ?>"><?php the_post_thumbnail( 'diamonds-thumb', array( 'class' => $align ) ); ?></a><?php } ?>
+						</div>
+					</div>
+				</div>
+		<?php } else { ?>
+			<section class="post-wrap clearfix <?php echo $cols; ?>">
+				<article id="post-<?php the_ID(); ?>" <?php post_class( 'grid' ); ?>>
 				<?php if ( get_query_var('paged') == 0 && is_sticky() ) { ?>
 					<ul class="date-meta post-icon">
 						<li><a href="<?php the_permalink(); ?>" title="<?php esc_attr_e( 'For More Info on ' ); the_title_attribute(); ?>">
@@ -626,27 +648,15 @@ function diamonds_loop( $args ) {
 					<?php diamonds_post_format_icons(); ?>
 				<?php } ?>
 					<header>
-						<h2><a href="<?php the_permalink(); ?>" title="<?php esc_attr_e( 'For More Info on ' ); the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
+						<a href="<?php the_permalink(); ?>" title="<?php esc_attr_e( 'For More Info on ' ); the_title_attribute(); ?>"><?php the_title( '<h2>', '</h2>' ); ?></a>
 					</header>
-					<?php if ( has_post_thumbnail() ) { ?><figure><?php the_post_thumbnail( $thumbSize ); ?><figcaption><?php the_post_thumbnail_caption(); ?></figcaption></figure><?php } ?>
-					<ul class="meta column fourth">
-						<li><?php _e( 'Written by ', 'diamonds' ); the_author_posts_link(); ?></li>
-						<?php if ( get_query_var('paged') == 0 && is_sticky() || has_post_format() ) { ?><li><?php the_time( 'M d, Y' ); ?></li><?php } ?>
-						<?php $open = comments_open(); if ( $open == true ) { ?><li><a href="<?php comments_link(); ?>"><?php $nocomment = __( 'Be the first to comment', 'diamonds'  ); $onecomment = __( 'Only one comment', 'diamonds'  ); $manycomments = __( '% comments', 'diamonds'  ); comments_number( $nocomment, $onecomment, $manycomments ); ?></a></li><?php } ?>
-						<li><?php $edit = __( 'Edit this post', 'diamonds'  ); edit_post_link( $edit ); ?></li>
-					</ul>
-					<div class="column three-quarters reverse">
-						<?php the_excerpt(); ?>
-						<p><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">View more...</a></p>
-					</div>
-					<footer class="column fourth"><ul class="meta"><li>Categories: <?php the_category( ' &bull; ' ) ?></li><li><?php the_tags( 'Tags: ',' &bull; ' ) ?></li></ul></footer>
+					<?php if ( has_post_thumbnail() ) { ?><?php the_post_thumbnail( $thumbSize, array( 'class' => $align ) ); } ?>
+					<?php the_excerpt(); ?>
 				</article>
 			</section>
-				
-
-		<?php endwhile; 
-			/* Restore Post Data */
-			wp_reset_postdata();?>
+		<?php } ?>
+			<?php endwhile; ?>
+		</div>
 	<?php endif; ##end if have posts ?>
 	<?php }
 add_shortcode( 'loop', 'diamonds_loop' );
@@ -704,10 +714,7 @@ function diamonds_add_profile_options( $user ) { ?>
   $user_id = get_current_user_id();
   //validate submitted value otherwise set to default
   $user_picture = sanitize_text_field( $_POST['user_picture'] );
-  $size = strpos( $user_picture, '-250x250.jpg' );
-  if ( !$size ) {
-  		$user_picture = str_replace( '.jpg', '-250x250.jpg', $user_picture );
-  	}
+  $user_picture = str_replace( '.jpg', '', $user_picture );
   //update user picture
   update_user_meta($user_id, 'user_picture', $user_picture);
  }

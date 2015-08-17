@@ -2,7 +2,7 @@
 		<?php $cols->diamonds_flex( 'left' ); ?>
 		<main class="col-<?php echo $mainWidth; ?>">
 			<?php if (have_posts() ) : while ( have_posts() ) : the_post(); ?>
-				<section class="clearfix">
+				<section class="post-wrap clearfix">
 					<article id="post-<?php the_ID(); ?>" <?php post_class( 'grid' ); ?>>
 					<?php if ( get_query_var('paged') == 0 && is_sticky() ) { ?>
 						<ul class="date-meta post-icon">

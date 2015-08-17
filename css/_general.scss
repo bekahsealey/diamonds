@@ -56,7 +56,6 @@ body {
 	background: $white;
 	box-shadow: 1px 0px 3px $charcoal;
 	position: relative;
-	z-index: 10;
 }
 #page-header h1 {
 	background: url(favicon.ico) left 2px no-repeat;
@@ -95,7 +94,7 @@ body {
 #top {
 	margin: 1rem auto;
 }
-section {
+section.post-wrap {
 	margin: 2rem 0;
 	padding-top: 4.8rem;
 	overflow: hidden;
@@ -116,6 +115,9 @@ article {
 article>header {
 	margin: 1rem 0 1.8rem 14rem;
 }
+.loop article>header {
+    margin: 5rem 0 1.8rem 0;
+}
 article footer {
     margin: 1rem 0;
 }
@@ -129,7 +131,6 @@ article footer {
 	position: absolute;
 	top: -30px;
 	left: 0;
-	z-index: 1;
 }
 .date-meta li {
 	display: inline-block;
@@ -244,20 +245,17 @@ ul.date-meta li a:active, ul.date-meta li a:active .icon,
 * Images
 *
 *****************/
+img {
+    width: initial;
+    height: auto;
+    max-width: 100%;
+}
 #custom-header {
 	box-shadow: none;
 }
 figure:not(.gallery-item) {
 	margin: 4rem auto 3rem;
-}
-.col-1-2 figure:not(.gallery-item), .vert figure:not(.gallery-item) {
-	max-width: 480px;
-}
-.col-2-3 figure:not(.gallery-item) {
-	max-width: 580px;
-}
-.col-3-4 figure:not(.gallery-item), .horiz figure:not(.gallery-item) {
-	max-width: 720px;
+	max-width: 100%;
 }
 figure:not(.gallery-item) img:not(#custom-header) {
     display: block;

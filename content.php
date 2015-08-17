@@ -1,4 +1,4 @@
-			<section class="clearfix">
+			<section class="post-wrap clearfix">
 				<article id="post-<?php the_ID(); ?>" <?php post_class( 'grid' ); ?>>
 					<?php diamonds_post_format_icons(); ?>
 					<header>
@@ -31,22 +31,25 @@
 						</section>
 					<?php } ?>
 					</footer>
-					<section class="author col-1-1 clearfix">
+				</article>
+					<aside class="author">
 					<hr>
 						<?php if( get_the_author_meta( 'description' ) ) { ?>
 						<?php echo get_avatar( get_the_author_meta( 'email' ), '80', 'mm', 'Avatar of '.get_the_author_meta( 'first_name' ).' '.get_the_author_meta( 'last_name' ) ); ?>
 						<h3>Written by: <?php the_author_posts_link(); ?></h3>
-							<p><?php the_author_meta( 'description' ); ?></p>
+								<?php $description = get_the_author_meta( 'description' );
+								$description = apply_filters( 'the_content', $description );
+								$description = str_replace( ']]>', ']]&gt;', $description ); ?>
+								<?php echo $description; ?>
 						<?php } ?>
 						<?php if( get_the_author_meta( 'user_url' ) ) { ?>
 							<a href="<?php the_author_meta( 'user_url' ); ?>" title="<?php the_author_meta( 'first_name' ); ?>'s Website" target="_blank">
 						<?php the_author_meta( 'user_url' ); ?></a> 
 						<?php } ?>
 						<p>Other posts by <?php the_author_posts_link(); ?></p>
-					</section><!-- author-->
+					</aside><!-- author-->
 					<hr>
-					<section class="sidebar col-1-1 clearfix">
+					<aside class="sidebar col-1-1 clearfix">
 						<?php get_sidebar( 'single'); ?>
-					</section>
-				</article>
+					</aside>
 			</section><!-- /row -->

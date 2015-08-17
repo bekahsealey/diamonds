@@ -12,12 +12,7 @@
 							</ul>
 						</nav><!-- .pagination -->
 					</section>
-	
-			<section class="clearfix">
-				<div class="comments">
-					<?php comments_template( '', true ); ?>
-				</div><!-- comments-->
-			</section>
+					<?php get_template_part( 'content', 'comments' ); ?>
 		<?php endwhile; else: ?>
 			<p><?php _e( 'Sorry, no posts matched your criteria.', 'diamonds' ); ?></p>
 		<?php endif; ?>

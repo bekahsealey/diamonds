@@ -2,7 +2,7 @@
 		<?php $cols->diamonds_flex( 'left' ); ?>
 		<main class="col-<?php echo $mainWidth; ?>">
 			<figure><img src="<?php echo get_template_directory_uri() . '/images/404.jpg' ?>"><figcaption>Not Found</figcaption></figure>
-			<section class="row clearfix">
+			<section class="post-wrap clearfix">
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 						<?php diamonds_page_icon(); ?>
 					<header>
