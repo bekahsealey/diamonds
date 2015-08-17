@@ -78,13 +78,19 @@ add_theme_support( 'custom-header', $custom_header_args );
  */
  
 add_post_type_support( 'page', 'excerpt' );
-
 add_post_type_support( 'post', 'excerpt' );
 
 function new_excerpt_more( $more ) {
 	return '<p><a class="read-more" href="'. get_permalink( get_the_ID() ) . '">' . __('Read on...', 'your-text-domain') . '</a></p>';
 }
 add_filter( 'excerpt_more', 'new_excerpt_more' );
+
+function diamonds_status_excerpt() {
+	//trim status content to 140 characters
+	$content = get_the_content();
+	$excerpt = _e(substr( $content, 0, 140 ));
+	return $excerpt;
+}
 
 /**
  * Style tiny-mce editor
@@ -301,7 +307,7 @@ function the_breadcrumb() {
           	  		echo'</li>';
             	}
             	if ( is_single() ) {
-                	the_title();
+            		the_title();
                 	echo '</li>';
             	}
     			elseif ( !have_posts() ) { echo single_cat_title( '', false ); }
@@ -311,7 +317,7 @@ function the_breadcrumb() {
                 	$ancestors = get_post_ancestors( $post->ID );
                 	foreach ( array_reverse($ancestors) as $ancestor ) {
 						$title = get_the_title();
-                    	$output .= '<li><a href="x" title="'.get_the_title($ancestor).'">'.get_the_title($ancestor).'</a></li> <li>&nbsp;&gt;&nbsp;</li>';
+                    	$output = '<li><a href="x" title="'.get_the_title($ancestor).'">'.get_the_title($ancestor).'</a></li> <li>&nbsp;&gt;&nbsp;</li>';
                 	}
                 	echo $output;
                 	echo '<li>' . $title . '</li>';
@@ -451,9 +457,9 @@ class diamondsFlexCol {
 	
 	public function __construct() {
 		// count active columns
-		if ( has_post_format( 'gallery' ) || (is_page_template( 'template-photography.php' )&& !is_active_sidebar( 'left-sidebar' ) && !is_active_sidebar( 'right-sidebar' ) ) ) {
+		if ( has_post_format( array( 'gallery', 'image', 'video' ) )|| (is_page_template( 'template-photography.php' )&& !is_active_sidebar( 'left-sidebar' ) && !is_active_sidebar( 'right-sidebar' ) ) ) {
 			$this->_numCols = 'full';
-		} if ( !has_post_format( 'gallery' ) && !(is_page_template( 'template-photography.php' )&& !is_active_sidebar( 'left-sidebar' ) && !is_active_sidebar( 'right-sidebar' ) )  ) {
+		} if ( !has_post_format( array( 'gallery', 'image', 'video' ) ) && !(is_page_template( 'template-photography.php' )&& !is_active_sidebar( 'left-sidebar' ) && !is_active_sidebar( 'right-sidebar' ) )  ) {
 			if ( ( !is_front_page() && is_active_sidebar( 'left-sidebar' ) && is_active_sidebar( 'right-sidebar' ) ) 
 			|| ( is_front_page() && is_active_sidebar( 'front-left-sidebar' ) && is_active_sidebar( 'front-right-sidebar' ) )) {
 				$this->_numCols = 'three';
@@ -519,12 +525,12 @@ class diamondsFlexCol {
 				$this->_size = 'two-thirds-page';
 				break;
 			case "single" :
-				$this->_maincol_width = '3-4 no-float';
+				$this->_maincol_width = '3-4 center';
 				$this->_size = 'three-quarters-page';
 				break;
 			case "full" :
-				$this->_maincol_width = '1-1 no-float';
-				$this->_size = 'post';
+				$this->_maincol_width = '1-1 center';
+				$this->_size = 'page';
 				break;
 		}
 	}
@@ -598,73 +604,7 @@ function diamonds_submenu() {
 		return $child_pages;
 	}
 }
-add_shortcode( 'submenu', 'diamonds_submenu' );
-
-function diamonds_loop( $args ) {
-	//  Attributes
-// 	echo '<pre>';
-// 	var_dump($args);
-// 	echo '</pre>';
-	$a = shortcode_atts( array(
-		'category' => '', //category name
-		'num' => '1', //number of posts to retrieve
-		'type' => 'archive', //style as archive, index, or diamonds 
-		'cols' => '1'
-	), $args );
-// 	echo '<pre>';
-// 	var_dump($a);
-// 	echo '</pre>';
-// 	exit;
-	$post_num = (int)str_replace(' ', '', $a['num']);
-	if ( $a['type'] == 'index' ) {
-		$thumbSize = 'post';
-		$align = 'aligncenter';
-	} else {
-		$thumbSize = 'sm-post-thumb';
-		$align = 'alignleft';
-	}
-	$cols = 'col-1-' . $a['cols'];
-	//var_dump($cat_ids);
-	//exit;
-		?>
-		<?php $cat_query = new WP_Query( array( 'category_name' => $a['category'] , 'posts_per_page' => $post_num) ); ?>
-		<div class="loop">
-		<?php if ( $cat_query->have_posts() && !is_404() ) : ?>
-		<?php while ( $cat_query->have_posts() ) : ##all other cases for single and lists: post, custom post type, page, archives, search, 404 ?>
-		<?php $cat_query->the_post(); ?>
-		<?php if ($a['type'] == 'diamonds' ) { ?>
-				<div class="diamond-box-wrap">
-					<div class="diamond-box">
-						<div class="diamond-box-inner">
-				<?php if ( has_post_thumbnail() ) { ?><a href="<?php the_permalink(); ?>" title="<?php esc_attr_e( 'For More Info on ' ); the_title_attribute(); ?>"><?php the_post_thumbnail( 'diamonds-thumb', array( 'class' => $align ) ); ?></a><?php } ?>
-						</div>
-					</div>
-				</div>
-		<?php } else { ?>
-			<section class="post-wrap clearfix <?php echo $cols; ?>">
-				<article id="post-<?php the_ID(); ?>" <?php post_class( 'grid' ); ?>>
-				<?php if ( get_query_var('paged') == 0 && is_sticky() ) { ?>
-					<ul class="date-meta post-icon">
-						<li><a href="<?php the_permalink(); ?>" title="<?php esc_attr_e( 'For More Info on ' ); the_title_attribute(); ?>">
-						<div class="icon icon-pushpin hide-label"><span>Sticky</span></div></a></li>
-					</ul>
-				<?php } else { ?>
-					<?php diamonds_post_format_icons(); ?>
-				<?php } ?>
-					<header>
-						<a href="<?php the_permalink(); ?>" title="<?php esc_attr_e( 'For More Info on ' ); the_title_attribute(); ?>"><?php the_title( '<h2>', '</h2>' ); ?></a>
-					</header>
-					<?php if ( has_post_thumbnail() ) { ?><?php the_post_thumbnail( $thumbSize, array( 'class' => $align ) ); } ?>
-					<?php the_excerpt(); ?>
-				</article>
-			</section>
-		<?php } ?>
-			<?php endwhile; ?>
-		</div>
-	<?php endif; ##end if have posts ?>
-	<?php }
-add_shortcode( 'loop', 'diamonds_loop' );
-	
+add_shortcode( 'submenu', 'diamonds_submenu' );	
 add_filter( 'comment_text', 'do_shortcode' );
 add_filter('widget_text', 'do_shortcode');
 

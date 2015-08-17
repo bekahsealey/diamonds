@@ -5,7 +5,8 @@
 						<a href="<?php the_permalink(); ?>" title="<?php esc_attr_e( 'For More Info on ' ); the_title_attribute(); ?>"><?php the_title( '<h2>', '</h2>' ); ?></a>
 					</header>
 					<div class="col-3-4 reverse">
-					<?php the_content(); ?>
+					<?php has_post_format( 'status' ) ? diamonds_status_excerpt() : the_content(); ?>
+					<?php if ( has_post_format( array( 'aside', 'status', 'quote', 'link' ) ) ) { ?><p><?php $edit = __( 'Edit this post', 'diamonds'  ); edit_post_link( $edit ); ?></p><?php } ?>
 					<?php wp_link_pages( array(
 						'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'diamonds' ) . '</span>',
 						'after'       => '</div>',
@@ -36,7 +37,7 @@
 					<hr>
 						<?php if( get_the_author_meta( 'description' ) ) { ?>
 						<?php echo get_avatar( get_the_author_meta( 'email' ), '80', 'mm', 'Avatar of '.get_the_author_meta( 'first_name' ).' '.get_the_author_meta( 'last_name' ) ); ?>
-						<h3>Written by: <?php the_author_posts_link(); ?></h3>
+						<h3>By: <?php the_author_posts_link(); ?></h3>
 								<?php $description = get_the_author_meta( 'description' );
 								$description = apply_filters( 'the_content', $description );
 								$description = str_replace( ']]>', ']]&gt;', $description ); ?>
@@ -47,9 +48,9 @@
 						<?php the_author_meta( 'user_url' ); ?></a> 
 						<?php } ?>
 						<p>Other posts by <?php the_author_posts_link(); ?></p>
-					</aside><!-- author-->
 					<hr>
-					<aside class="sidebar col-1-1 clearfix">
+					</aside><!-- author-->
+					<aside class="sidebar post-widgets col-1-1 clearfix">
 						<?php get_sidebar( 'single'); ?>
 					</aside>
 			</section><!-- /row -->

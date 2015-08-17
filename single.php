@@ -1,8 +1,9 @@
-<?php get_header(); ?><?php global $cols; global $mainWidth; global $thumbSize; ?>
+<?php get_header(); ?>
+<?php global $cols; global $mainWidth; global $thumbSize; ?>
 		<?php $cols->diamonds_flex( 'left' ); ?>
 		<main class="col-<?php echo $mainWidth; ?>">
 		<?php if (have_posts() ) : while ( have_posts() ) : the_post(); ?>
-		<?php if ( has_post_thumbnail() ) { ?><figure><?php the_post_thumbnail( $thumbSize ); ?><figcaption><?php the_post_thumbnail_caption(); ?></figcaption></figure><?php } ?>
+		<?php if ( has_post_thumbnail() ) { ?><figure <?php post_class(); ?>><?php the_post_thumbnail( $thumbSize ); ?><figcaption><?php the_post_thumbnail_caption(); ?></figcaption></figure><?php } ?>
 					<?php get_template_part( 'content', get_post_format() ); ?>
 					<section class="clearfix">
 						<nav id="pagi" class="clearfix">
