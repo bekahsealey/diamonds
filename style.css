@@ -1012,6 +1012,9 @@ body {
   bottom: -6px;
   left: 0; }
 
+#social {
+  clear: both; }
+
 .wrapper {
   margin-top: 6px; }
 

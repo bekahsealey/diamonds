@@ -53,6 +53,25 @@ add_theme_support( 'post-thumbnails' );
 add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption' ) );
 add_theme_support( 'automatic-feed-links' );
 add_theme_support( 'post-formats', array( 'aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat' ) );
+add_theme_support( 'custom-background' );
+add_theme_support( 'title-tag' );
+
+/**
+ * Define Custom Header & Background
+ */
+ 
+$custom_header_args = array(
+	'default-image'          => '',
+	'random-default'         => false,
+	'width'                  => 420,
+	'height'                 => 120,
+	'flex-height'            => true,
+	'flex-width'             => true,
+	'default-text-color'     => '2B2B2B',
+	'header-text'            => true,
+	'uploads'                => true
+);
+add_theme_support( 'custom-header', $custom_header_args );
 
 /**
  * Configure excerpts
@@ -76,34 +95,19 @@ function diamonds_add_editor_styles() {
 }
 add_action( 'after_setup_theme', 'diamonds_add_editor_styles' );
 
-/**
- * Define Custom Header & Background
- */
- 
-$custom_header_args = array(
-	'default-image'          => '',
-	'random-default'         => false,
-	'width'                  => 420,
-	'height'                 => 120,
-	'flex-height'            => true,
-	'flex-width'             => true,
-	'default-text-color'     => '2B2B2B',
-	'header-text'            => true,
-	'uploads'                => true
-);
-add_theme_support( 'custom-header', $custom_header_args );
-add_theme_support( 'custom-background' );
+
 
 /**
  * Enqueue scripts and styles
  */
 function diamonds_scripts() {
+	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' );
 	wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/js/modernizr.js', array( 'jquery' ), '2.8.3', true );
 	wp_enqueue_style( 'fonts', 'http://fonts.googleapis.com/css?family=Fontdiner+Swanky%7cAlegreya+Sans:400,300,300italic,400italic,100italic,100' );
 	wp_enqueue_style( 'slicknav', get_template_directory_uri() . '/css/slicknav.css' );
 	wp_enqueue_style( 'diamond-gallery', get_template_directory_uri() . '/css/diamonds.css' );
 	wp_enqueue_style( 'fancybox',  get_template_directory_uri() . '/css/jquery.fancybox.css' ); 
-	wp_enqueue_script( 'diamonds-js', get_template_directory_uri() . '/js/jquery.diamonds.js', array( 'jquery' ), '1.0.0', true );
+	wp_enqueue_script( 'diamonds-js', get_template_directory_uri() . '/js/jquery.diamonds.js', array( 'jquery' ), '1.0.0', false );
 	wp_enqueue_script( 'flex-js', get_template_directory_uri() . '/js/flex.js', array( 'jquery' ), '1.0.0', true );
 	wp_enqueue_script( 'slicknav-js', get_stylesheet_directory_uri() . '/js/jquery.slicknav.js', array( 'jquery' ), '1.0.4', false );
 	wp_enqueue_script( 'fancybox-js', get_stylesheet_directory_uri() . '/js/jquery.fancybox.js', array( 'jquery' ), '2.1.5', true );
@@ -527,16 +531,16 @@ class diamondsFlexCol {
 }
 
 function diamonds_front_page_gallery() {
-		if ( !is_front_page()) {
+		if ( !is_front_page() ) {
 			return; 
 		} else {
 			/* 
 			 * Collect featured images from 'Diamonds Gallery' category to insert into front page gallery
 			 */
-			$args = array( 'category_name' => 'portfolio', 'posts_per_page' => 15, 'orderby' => 'rand' );
+			$args = array( 'category_name' => 'diamonds-gallery', 'posts_per_page' => 15, 'orderby' => 'rand' );
 			$gallery_query = new WP_Query( $args ); 
 			if ( $gallery_query->have_posts() ) :
-				echo '<div class="diamondswrap col-1-1 no-float">';
+				echo '<div class="diamondswrap center">';
 				while ( $gallery_query->have_posts() ) : $gallery_query->the_post(); 
 				if (has_post_thumbnail()) {
 					echo '<a href="'; the_permalink(); echo '" class="item">';
@@ -728,15 +732,15 @@ add_action( 'edit_user_profile_update', 'diamonds_add_profile_options_update' );
 function modify_user_contact_methods( $user_contact ) {
 
 	/* Add user contact methods */
-	$user_contact['facebook'] = __( 'Facebook' ); 
-	$user_contact['twitter'] = __( 'Twitter' );
-	$user_contact['skype'] = __( 'Skype' );
-	$user_contact['github'] = __( 'Github' );
-	$user_contact['pinterest'] = __( 'Pinterest' );
-	$user_contact['instagram'] = __( 'Instagram' );
-	$user_contact['linkedin'] = __( 'LinkedIn' );
-	$user_contact['codepen'] = __( 'Codepen' );
-	$user_contact['tumblr'] = __( 'Tumblr' );
+	$user_contact['facebook'] = __( 'Facebook', 'diamonds' ); 
+	$user_contact['twitter'] = __( 'Twitter', 'diamonds' );
+	$user_contact['skype'] = __( 'Skype', 'diamonds' );
+	$user_contact['github'] = __( 'Github', 'diamonds' );
+	$user_contact['pinterest'] = __( 'Pinterest', 'diamonds' );
+	$user_contact['instagram'] = __( 'Instagram', 'diamonds' );
+	$user_contact['linkedin'] = __( 'LinkedIn', 'diamonds' );
+	$user_contact['codepen'] = __( 'Codepen', 'diamonds' );
+	$user_contact['tumblr'] = __( 'Tumblr', 'diamonds' );
 	
 	return $user_contact;
 }
