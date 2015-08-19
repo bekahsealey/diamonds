@@ -290,6 +290,12 @@ fieldset {
   margin: 2rem;
   padding: 1rem; }
 
+fieldset fieldset {
+  border: none;
+  background: transparent;
+  margin: 0;
+  padding: 0; }
+
 .no-rgba form {
   background: url(images/form-bg-top.png) center top no-repeat;
   position: relative; }
@@ -848,6 +854,9 @@ a[rel~=icon-css3]:before, .icon-css3:before {
 nav ul {
   margin-left: 0; }
 
+article nav ul {
+  margin-left: 2rem; }
+
 div.menu li,
 ul.horiz li {
   display: inline-block;
@@ -992,7 +1001,8 @@ body {
   clear: both; }
 
 .wrapper {
-  margin-top: 6px; }
+  margin-top: 6px;
+  padding-bottom: 20px; }
 
 #top {
   margin: 1rem auto; }

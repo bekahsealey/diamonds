@@ -4,7 +4,7 @@
 <!--[if !IE]>-->   <html <?php language_attributes(); ?> class="no-js"> <!--<![endif]-->
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
-<title><?php wp_title( '|' ); ?></title>
+<title><?php wp_title( ' | ' ); ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="<?php echo bloginfo( 'stylesheet_url' ); ?>" rel="stylesheet" media="screen">
 <link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri(); ?>/favicon.ico" />
@@ -36,7 +36,6 @@
 			
 			<?php $social_media = array(
 				'theme_location'  => 'social-media',
-				'menu' 			  => 'links',
 				'container'       => 'div',
 				'container_id'    => 'social',
 				'container_class' => 'reverse',
@@ -58,7 +57,7 @@
 		<div class="grid clearfix">
 		<?php diamonds_front_page_gallery(); ?>
 		<?php if ( diamonds_submenu() ) { get_sidebar( 'header' ); } ?>
-		<?php global $cols; global $mainWidth; global $thumbSize;			
+		<?php global $cols; global $mainWidth; global $thumbSize; global $page_icon;			
 			$cols = new diamondsFlexCol();
 			$mainWidth = $cols->_maincol_width;
 			$thumbSize = $cols->_size;

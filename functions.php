@@ -362,11 +362,11 @@ function current_copyright() {
 function diamonds_page_icon() {
     global $post;
 	echo '<ul class="date-meta post-icon">';
-	$page_title = get_the_title(); 
-	$words = array( 'about', 'contact', 'products', 'services', 'portfolio' );
+	$page_title = get_the_title();
+	$words = array( 'about', 'contact', 'products', 'services', 'portfolio', 'photography', 'web', 'optimization' );
 	$page_icon = "icon icon-pencil";
 	
-	if ( is_home() == true ) {
+	if ( is_front_page() || is_home() ) {
 		$page_icon = "icon icon-home";
 	} else {
 		foreach ($words as $word) {
@@ -386,18 +386,27 @@ function diamonds_page_icon() {
 						$page_icon = "icon icon-lab";
 						break;
 					case "portfolio":
-						$page_icon = "icon icon-images";
+						$page_icon = "icon icon-folder";
+						break;
+					case "photography":
+						$page_icon = "icon icon-camera";
+						break;
+					case "web":
+						$page_icon = "icon icon-screen";
+						break;
+					case "optimization":
+						$page_icon = "icon icon-stats";
 						break;
 				};
 			}
-		}
-		echo '<li><div class="';
-		echo $page_icon;
-		echo ' hide-label"><span>';
-		if ( is_home() == true ){ echo "Home"; } else the_title();
-		echo '</span></div></li>';
-		echo '</ul>';		
+		}		
 	}
+	echo '<li><div class="';
+	echo $page_icon;
+	echo ' hide-label"><span>';
+	echo is_home() ? "Home" : the_title();
+	echo '</span></div></li>';
+	echo '</ul>';
 }
 
 function diamonds_post_format_icons() {
@@ -543,7 +552,7 @@ function diamonds_front_page_gallery() {
 			/* 
 			 * Collect featured images from 'Diamonds Gallery' category to insert into front page gallery
 			 */
-			$args = array( 'category_name' => 'diamonds-gallery', 'posts_per_page' => 15, 'orderby' => 'rand' );
+			$args = array( 'category_name' => 'portfolio', 'posts_per_page' => 15, 'orderby' => 'rand' );
 			$gallery_query = new WP_Query( $args ); 
 			if ( $gallery_query->have_posts() ) :
 				echo '<div class="diamondswrap center">';
@@ -582,15 +591,32 @@ function diamonds_submenu() {
 	if ( is_404() ) {
 		return; 
 	}
-	$currentid = get_the_id();
-	$currentpost = get_post( $currentid );
-	$has_children = get_pages('child_of='.$currentpost->ID);
-	if( count( $has_children ) == 0 && $currentpost->post_parent  && $currentid != 404) {
-		//collect siblings
-		$children = wp_list_pages("title_li=&child_of=".$currentpost->post_parent."&echo=0", 'sort_column=menu_order');
-	} else { 
-		//collect children
-		$children = wp_list_pages("title_li=&child_of=".$currentpost->ID."&echo=0", 'sort_column=menu_order');
+	if ( is_page() ) {
+		$currentid = get_the_id();
+		$currentpost = get_post( $currentid );
+		$has_children = get_pages('child_of='.$currentpost->ID);
+		if( count( $has_children ) == 0 && $currentpost->post_parent  && $currentid != 404) {
+			//collect siblings
+			$children = wp_list_pages("title_li=&child_of=".$currentpost->post_parent."&echo=0", 'sort_column=menu_order');
+		} else { 
+			//collect children
+			$children = wp_list_pages("title_li=&child_of=".$currentpost->ID."&echo=0", 'sort_column=menu_order');
+		}
+	}
+	if( is_archive() || is_page( 'photography' )) {
+		if ( is_page( 'photography' ) ) {
+			$category = get_cat_ID( 'photography' );
+		}	
+		if ( !$category ) { $category = get_query_var( 'cat' ); }
+		$has_children = get_categories( array( 'parent' => $category ) );
+		//var_dump( $has_children ); 
+		if( $has_children == NULL ) { 
+			$cat = get_category($category);
+			$parent = $cat->category_parent;
+			$children = wp_list_categories("title_li=&child_of=".$parent."&echo=0", 'depth=1');
+		} else {
+			$children = wp_list_categories("title_li=&child_of=".$category."&echo=0", 'depth=1');
+		}	
 	}
 	if ( !$children || is_404() ) {
 		return;
@@ -681,6 +707,7 @@ function modify_user_contact_methods( $user_contact ) {
 	$user_contact['linkedin'] = __( 'LinkedIn', 'diamonds' );
 	$user_contact['codepen'] = __( 'Codepen', 'diamonds' );
 	$user_contact['tumblr'] = __( 'Tumblr', 'diamonds' );
+	$user_contact['youtube'] = __( 'YouTube', 'diamonds' );
 	
 	return $user_contact;
 }
