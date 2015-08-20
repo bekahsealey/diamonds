@@ -1,21 +1,4 @@
 <?php
-/**
- * Load Languages
- */
-add_action('after_setup_theme', 'diamonds_setup');
-function diamonds_setup(){
-    load_theme_textdomain('diamonds', get_template_directory() . '/languages');
-}
-
-/**
- * Define Navigation menu areas
- */
-register_nav_menus(
-	array(
-		'main-nav' => 'Main Nav in header',
-		'social-media' => 'Social Media Links',
-	)
-); 
 
 /**
  * Define maximum content width
@@ -24,11 +7,16 @@ if ( ! isset( $content_width ) ) {
 	$content_width = 778;
 }
 
-/**
- * Generate Featured Image thumbnail sizes
- */
- add_action( 'after_setup_theme', 'diamonds_image_setup' );
-function diamonds_image_setup() {
+if ( ! function_exists( 'diamonds_setup' ) ) :
+function diamonds_setup() {
+	/**
+	 * Load Languages
+	 */
+    load_theme_textdomain('diamonds', get_template_directory() . '/languages');
+    
+	/**
+	 * Generate Featured Image thumbnail sizes
+	 */
 	add_image_size( 'three-quarters-post', 720, 240, true );
 	add_image_size( 'three-quarters-page', 720, 400, true );
 	add_image_size( 'two-thirds-post', 580, 240, true );
@@ -43,18 +31,40 @@ function diamonds_image_setup() {
 	add_image_size( 'post', 960, 240, true );
 	add_image_size( 'page', 960, 400, true );
 	add_image_size( 'featured', 960, 720, true );
-}
-add_theme_support( 'post-thumbnails' );
 
-/**
- * Add theme support for HTML5, feed links, post-formats
- */
+	add_theme_support( 'post-thumbnails' );
+
+	/**
+	 * Add theme support for HTML5, feed links, post-formats
+	 */
  
-add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption' ) );
-add_theme_support( 'automatic-feed-links' );
-add_theme_support( 'post-formats', array( 'aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat' ) );
-add_theme_support( 'custom-background' );
-add_theme_support( 'title-tag' );
+	add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption' ) );
+	add_theme_support( 'automatic-feed-links' );
+	add_theme_support( 'post-formats', array( 'aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat' ) );
+	add_theme_support( 'custom-background' );
+	add_theme_support( 'title-tag' );
+
+	if ( ! function_exists( '_wp_render_title_tag' ) ) {
+		function theme_slug_render_title() {
+	?>
+	<title><?php wp_title( '|', true, 'right' ); ?></title>
+	<?php
+		}
+		add_action( 'wp_head', 'theme_slug_render_title' );
+	}
+
+	/**
+	 * Define Navigation menu areas
+	 */
+	register_nav_menus(
+		array(
+			'main-nav' => 'Main Nav in header',
+			'social-media' => 'Social Media Links',
+		)
+	); 
+}
+endif; // diamonds_setup
+add_action( 'after_setup_theme', 'diamonds_setup' );
 
 /**
  * Define Custom Header & Background
@@ -110,6 +120,7 @@ function diamonds_scripts() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' );
 	wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/js/modernizr.js', array( 'jquery' ), '2.8.3', true );
 	wp_enqueue_style( 'fonts', 'http://fonts.googleapis.com/css?family=Fontdiner+Swanky%7cAlegreya+Sans:400,300,300italic,400italic,100italic,100' );
+	wp_enqueue_style( 'diamonds-style', get_stylesheet_uri(), array(), '2015-08-20' );
 	wp_enqueue_style( 'slicknav', get_template_directory_uri() . '/css/slicknav.css' );
 	wp_enqueue_style( 'diamond-gallery', get_template_directory_uri() . '/css/diamonds.css' );
 	wp_enqueue_style( 'fancybox',  get_template_directory_uri() . '/css/jquery.fancybox.css' ); 
@@ -224,17 +235,6 @@ add_action( 'widgets_init', 'diamonds_widget_init' );
  * Global Functions
  */
 
-function diamonds_filter_wp_title( $currenttitle, $sep, $seplocal ) {
-	$site_name = get_bloginfo( 'name' );
-	$full_title = $site_name . $currenttitle;
-	if ( is_front_page() || is_home() ) {
-		$site_desc = get_bloginfo( 'description' );
-		$full_title .= ' ' . $sep . ' ' . $site_desc;
-	}
-	return $full_title;
-}
-add_filter( 'wp_title', 'diamonds_filter_wp_title', 10, 3 );
-
 function diamonds_paginate() {
     global $paged, $wp_query;
     $abignum = 999999999; //we need an unlikely integer
@@ -317,7 +317,8 @@ function the_breadcrumb() {
                 	$ancestors = get_post_ancestors( $post->ID );
                 	foreach ( array_reverse($ancestors) as $ancestor ) {
 						$title = get_the_title();
-                    	$output = '<li><a href="x" title="'.get_the_title($ancestor).'">'.get_the_title($ancestor).'</a></li> <li>&nbsp;&gt;&nbsp;</li>';
+						$link = get_permalink( $ancestor );
+                    	$output = '<li><a href="'.$link.'" title="'.get_the_title($ancestor).'">'.get_the_title($ancestor).'</a></li> <li>&nbsp;&gt;&nbsp;</li>';
                 	}
                 	echo $output;
                 	echo '<li>' . $title . '</li>';
@@ -386,7 +387,7 @@ function diamonds_page_icon() {
 						$page_icon = "icon icon-lab";
 						break;
 					case "portfolio":
-						$page_icon = "icon icon-folder";
+						$page_icon = "icon icon-folder-open";
 						break;
 					case "photography":
 						$page_icon = "icon icon-camera";
@@ -588,7 +589,7 @@ function diamonds_icons( $icons ) {
 add_shortcode( 'icon', 'diamonds_icons' );
 
 function diamonds_submenu() {
-	if ( is_404() ) {
+	if ( is_404() || !is_archive() || !is_page() ) {
 		return; 
 	}
 	if ( is_page() ) {

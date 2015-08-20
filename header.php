@@ -3,12 +3,12 @@
 <!--[if gt IE 9 ]> <html class="no-js" lang="en"> <![endif]-->
 <!--[if !IE]>-->   <html <?php language_attributes(); ?> class="no-js"> <!--<![endif]-->
 <head>
-<meta charset="<?php bloginfo( 'charset' ); ?>">
-<title><?php wp_title( ' | ' ); ?></title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="<?php echo bloginfo( 'stylesheet_url' ); ?>" rel="stylesheet" media="screen">
-<link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri(); ?>/favicon.ico" />
-<?php wp_head(); ?>
+	<meta charset="<?php bloginfo( 'charset' ); ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
+	<link rel="shortcut icon" href="<?php echo get_stylesheet_directory_uri(); ?>/favicon.ico" />
+	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
 	<header id="page-header" <?php $header_image = get_header_image(); if ( !empty( $header_image ) ) { ?> style="min-height: <?php echo get_custom_header()->height; ?>px;" <?php } ?>>
