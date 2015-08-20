@@ -587,7 +587,7 @@ function diamonds_icons( $icons ) {
 add_shortcode( 'icon', 'diamonds_icons' );
 
 function diamonds_submenu() {
-	if ( is_404() || !is_archive() || !is_page() ) {
+	if ( is_404() || ( !is_archive() && !is_page() ) ) {
 		return; 
 	}
 	if ( is_page() ) {
