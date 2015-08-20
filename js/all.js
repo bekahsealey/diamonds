@@ -22,28 +22,6 @@ jQuery(document).ready(function($) {
 		$(".diamondswrap").css("max-width", rowWidth);
 	}
 	
-	//nav menu html correction if menu left default
-	if ( $("#page-header div.menu") == null) {
-		return false;
-	}
-	$("#page-header div.menu").each(function() {
-		$(this).find("ul").attr("id", "menu-main").attr("class", "menu horiz clearfix reverse");
-		var menucontent = $(this).html();
-		$(this).replaceWith('<nav class="menu horiz clearfix reverse"></nav>');
-		$("nav.menu").append(menucontent).removeClass("menu ");
-		
-	});
-	if ( $("#page-header div#social") == null) {
-		return false;
-	}
-	$("#page-header div#social").each(function() {
-		$(this).find("a").contents()
-  .filter(function(){
-    return this.nodeType !== 1;
-  })
-  .wrap( '<span></span>' );
-		
-	});
 	
 	// reorder document structure for mobile
 	if ( $("div#left") == null || $("div#main") == null || $("main") == null) return false; 

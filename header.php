@@ -43,6 +43,8 @@
 				'fallback_cb'     => false,
 				'items_wrap'      => '<ul id="%1$s" class="%2$s clearfix horiz">%3$s</ul>',
 				'depth'           => 1,
+				'link_before'           => '<span>',
+				'link_after'           => '</span>'
 			);
 			wp_nav_menu( $social_media );
 			?>
