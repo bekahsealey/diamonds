@@ -69,7 +69,7 @@
 									foreach ( $contacts as $contact => $value ) {
 										if ( $author->$contact ) {
 									?>
-										<li><a href="<?php echo $author->$contact; ?>"><?php echo $value; ?></a></li>
+										<li><a class="icon icon-<?php echo strtolower( $value ); ?>" $href="<?php echo $author->$contact; ?>"><?php echo $value; ?></a></li>
 										
 										<?php } ?>
 									<?php } ?>

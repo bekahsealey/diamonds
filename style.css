@@ -171,8 +171,13 @@ li {
 
 .meta {
   list-style: none;
-  font-size: 1.2rem;
   margin-left: 0; }
+
+.meta li {
+  font-size: 1.3rem; }
+
+.author .meta li {
+  font-size: 1.5rem; }
 
 .robert {
   list-style: decimal-leading-zero; }
@@ -505,6 +510,9 @@ a[rel~=icon]:before {
   display: block;
   font-size: 3.6rem;
   text-shadow: #8d8d8d 0px 1px 1px; }
+
+a[class~=icon]:before {
+  margin-right: 0.5rem; }
 
 .icon-seed:before {
   content: "\e644"; }
