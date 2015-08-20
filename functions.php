@@ -603,6 +603,7 @@ function diamonds_submenu() {
 		}
 	}
 	if( is_archive() || is_page( 'photography' )) {
+		$category = false;
 		if ( is_page( 'photography' ) ) {
 			$category = get_cat_ID( 'photography' );
 		}	
